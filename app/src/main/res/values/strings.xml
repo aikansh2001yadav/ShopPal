@@ -2,9 +2,14 @@
     <string name="app_name">ShopPal</string>
     <string name="login_text">Login</string>
     <string name="app_logo_description">App logo</string>
-    <string name="email_hint">Enter email</string>
-    <string name="password_hint">Enter password</string>
+    <string name="email_hint">enter your email</string>
+    <string name="password_hint">enter your password</string>
     <string name="forgot_password_text">Forgot password</string>
     <string name="register_text">Register</string>
     <string name="shop_pal_text">Shop Pal</string>
+    <string name="register_name_hint">enter your name</string>
+    <string name="register_last_name">enter your last name</string>
+    <string name="confirm_password_hint">confirm your password</string>
+    <string name="agree_all_conditions_text">I agree to all <u>terms and conditions</u></string>
+    <string name="no_account_text">Don\'t have an account</string>
 </resources>

@@ -9,4 +9,5 @@
     <dimen name="margin_layout">15dp</dimen>
     <dimen name="text_register_size">16sp</dimen>
     <dimen name="text_forgot_size">16sp</dimen>
+    <dimen name="layout_header_padding">15dp</dimen>
 </resources>

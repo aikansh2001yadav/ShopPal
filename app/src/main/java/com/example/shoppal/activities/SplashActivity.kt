@@ -16,6 +16,7 @@ class SplashActivity : AppCompatActivity() {
 
         Timer().schedule(2000) {
             startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            finish()
         }
     }
 }

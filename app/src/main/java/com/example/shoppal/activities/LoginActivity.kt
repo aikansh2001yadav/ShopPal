@@ -1,11 +1,11 @@
 package com.example.shoppal.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppal.R
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener{
@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener{
                     Toast.makeText(this@LoginActivity, "Hello", Toast.LENGTH_LONG).show()
                 }
                 R.id.text_register -> {
-                    Toast.makeText(this@LoginActivity, "Register", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
                 }
             }
         }
