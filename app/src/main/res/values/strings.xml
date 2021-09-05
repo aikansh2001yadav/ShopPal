@@ -12,4 +12,9 @@
     <string name="confirm_password_hint">confirm your password</string>
     <string name="agree_all_conditions_text">I agree to all <u>terms and conditions</u></string>
     <string name="no_account_text">Don\'t have an account</string>
+    <string name="create_account">Create Your Account</string>
+    <string name="have_account_text">Already have an account?</string>
+    <string name="forgot_password_question_text">Forgot Password?</string>
+    <string name="forgot_information">If you forget password, enter your email to reset password</string>
+    <string name="submit_text">Submit</string>
 </resources>

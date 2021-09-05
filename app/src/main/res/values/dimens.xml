@@ -8,6 +8,10 @@
     <dimen name="input_stroke_width">3dp</dimen>
     <dimen name="margin_layout">15dp</dimen>
     <dimen name="text_register_size">16sp</dimen>
-    <dimen name="text_forgot_size">16sp</dimen>
+    <dimen name="text_forgot_size">18sp</dimen>
     <dimen name="layout_header_padding">15dp</dimen>
+    <dimen name="text_login_back_size">16sp</dimen>
+    <dimen name="text_forgot_question_size">28sp</dimen>
+    <dimen name="forget_information_padding">15dp</dimen>
+    <dimen name="text_submit_size">16sp</dimen>
 </resources>
