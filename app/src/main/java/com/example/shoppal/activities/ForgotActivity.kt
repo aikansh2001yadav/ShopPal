@@ -2,7 +2,10 @@ package com.example.shoppal.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import com.example.shoppal.R
+import com.example.shoppal.firebase.Firebase
 
 class ForgotActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -10,6 +13,10 @@ class ForgotActivity : AppCompatActivity() {
         setContentView(R.layout.activity_forgot)
 
         setActionBarWithBack()
+        findViewById<View>(R.id.btn_submit).setOnClickListener {
+            val email = findViewById<EditText>(R.id.edit_text_email_forgot).text.toString()
+            Firebase(this@ForgotActivity).sendPasswordResetEmail(email)
+        }
     }
 
     private fun setActionBarWithBack() {
@@ -23,4 +30,5 @@ class ForgotActivity : AppCompatActivity() {
         }
         findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_forgot_activity).setNavigationOnClickListener { onBackPressed() }
     }
+
 }

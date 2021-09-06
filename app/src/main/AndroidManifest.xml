@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopPal">
         <activity
+            android:name=".activities.UserProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.ForgotActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
