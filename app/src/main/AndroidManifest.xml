@@ -11,7 +11,10 @@
         android:theme="@style/Theme.ShopPal">
         <activity
             android:name=".activities.UserProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
         <activity
             android:name=".activities.ForgotActivity"
             android:exported="true"
@@ -36,7 +39,13 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

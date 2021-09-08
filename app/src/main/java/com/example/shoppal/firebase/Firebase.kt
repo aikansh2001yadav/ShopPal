@@ -35,30 +35,16 @@ class Firebase(private val baseActivity: Activity) {
         baseActivity.applicationContext.startActivity(intent)
     }
 
-    fun createUser(email: String, password: String) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("Signup", "createUserWithEmail:success")
-                    firebaseAuth.signOut()
-                    baseActivity.onBackPressed()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("Signup", "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseActivity, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-    }
 
-    fun sendPasswordResetEmail(email: String){
+    fun sendPasswordResetEmail(email: String) {
         firebaseAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    Toast.makeText(baseActivity, "Please check your email to reset", Toast.LENGTH_SHORT).show()
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        baseActivity,
+                        "Please check your email to reset",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }

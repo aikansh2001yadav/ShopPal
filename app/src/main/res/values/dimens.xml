@@ -14,4 +14,10 @@
     <dimen name="text_forgot_question_size">28sp</dimen>
     <dimen name="forget_information_padding">15dp</dimen>
     <dimen name="text_submit_size">16sp</dimen>
+    <dimen name="complete_details_size">16sp</dimen>
+    <dimen name="radio_button_margin">5dp</dimen>
+    <dimen name="image_background_corner_radius">6dp</dimen>
+    <dimen name="gender_button_radius">6dp</dimen>
+    <dimen name="profile_image_size">100dp</dimen>
+    <dimen name="profile_stroke_width">2dp</dimen>
 </resources>

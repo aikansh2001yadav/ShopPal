@@ -17,4 +17,9 @@
     <string name="forgot_password_question_text">Forgot Password?</string>
     <string name="forgot_information">If you forget password, enter your email to reset password</string>
     <string name="submit_text">Submit</string>
+    <string name="enter_complete_details_text">Enter complete details</string>
+    <string name="person_image_description">User Profile Image</string>
+    <string name="enter_phone_hint">Enter phone number</string>
+    <string name="male_text">Male</string>
+    <string name="female_text">Female</string>
 </resources>

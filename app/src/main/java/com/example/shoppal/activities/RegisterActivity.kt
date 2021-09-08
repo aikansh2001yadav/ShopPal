@@ -1,6 +1,7 @@
 package com.example.shoppal.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.CheckBox
@@ -9,7 +10,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppal.R
-import com.example.shoppal.firebase.Firebase
+import com.example.shoppal.firebase.Firestore
+import com.example.shoppal.models.User
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +88,40 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         if (validateDetails()) {
             val email = findViewById<EditText>(R.id.edit_text_register_email).text.toString()
             val password = findViewById<EditText>(R.id.edit_text_register_password).text.toString()
-            Firebase(this@RegisterActivity).createUser(email, password)
+            val firebaseAuth = FirebaseAuth.getInstance()
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("Signup", "createUserWithEmail:success")
+                        val id = firebaseAuth.currentUser?.uid
+                        if (id != null) {
+                            val userName =
+                                findViewById<EditText>(R.id.edit_text_register_name).text.toString()
+                            val userLastName =
+                                findViewById<EditText>(R.id.edit_text_register_last_name).text.toString()
+                            Firestore(this@RegisterActivity).uploadUserDetails(
+                                User(
+                                    id,
+                                    userName,
+                                    userLastName,
+                                    email,
+                                    "",
+                                    "",
+                                    "",
+                                    0
+                                )
+                            )
+                        }
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("Signup", "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            this, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
         }
     }
 

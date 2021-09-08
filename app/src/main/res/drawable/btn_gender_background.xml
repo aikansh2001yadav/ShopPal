@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/gender_button_radius" />
+            <stroke android:color="@color/teal"
+                android:width="@dimen/profile_stroke_width"/>
+            <gradient
+                android:angle="360"
+                android:endColor="@color/teal"
+                android:startColor="@color/blue"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item android:state_checked="false">
+        <shape android:shape="rectangle">
+            <stroke android:color="@color/grey"
+                android:width="@dimen/profile_stroke_width"/>
+            <corners android:radius="@dimen/gender_button_radius" />
+        </shape>
+    </item>
+</selector>
