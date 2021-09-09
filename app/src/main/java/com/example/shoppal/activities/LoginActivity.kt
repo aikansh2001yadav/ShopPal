@@ -22,9 +22,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<TextView>(R.id.text_forgot).setOnClickListener(this)
     }
 
+    /**
+     * Tries to login and get user profile details from firestore after successful login
+     */
     private fun tryLogin() {
         val email = findViewById<EditText>(R.id.edit_text_email).text.toString()
         val password = findViewById<EditText>(R.id.edit_text_password).text.toString()
+        //If all the input information given by the user is valid,then login user
         if (validateEmailPassword(email, password)) {
             Firebase(this@LoginActivity).loginUser(email, password)
         } else {
@@ -33,6 +37,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * Validates the input information given by the user and return true if all information is valid and invalid otherwise
+     */
     private fun validateEmailPassword(email: String, password: String): Boolean {
         // Check for a valid email address.
         val isEmailValid: Boolean = if (email.isEmpty()) {

@@ -24,6 +24,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         setActionBarWithBack()
     }
 
+    /**
+     * Sets back title icon for back pressing on the action bar
+     */
     private fun setActionBarWithBack() {
         setSupportActionBar(findViewById(R.id.toolbar_register_activity))
 
@@ -36,6 +39,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_register_activity).setNavigationOnClickListener { onBackPressed() }
     }
 
+    /**
+     * Validates input information given by the user and give suggestions
+     */
     private fun validateDetails(): Boolean {
         val email = findViewById<EditText>(R.id.edit_text_register_email).text.toString()
         val password = findViewById<EditText>(R.id.edit_text_register_password).text.toString()
@@ -84,6 +90,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * Tries to create user and uploads user details after successful creation of the user
+     */
     private fun tryRegister() {
         if (validateDetails()) {
             val email = findViewById<EditText>(R.id.edit_text_register_email).text.toString()

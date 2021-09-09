@@ -39,9 +39,9 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_marginTop="@dimen/margin_layout"
                     android:layout_width="@dimen/app_logo_size"
                     android:layout_height="@dimen/app_logo_size"
+                    android:layout_marginTop="@dimen/margin_layout"
                     android:contentDescription="@string/app_logo_description"
                     android:src="@drawable/ic_shop" />
             </LinearLayout>

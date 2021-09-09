@@ -14,6 +14,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        //Delays 2 seconds for starting LoginActivity
         Timer().schedule(2000) {
             startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             finish()
