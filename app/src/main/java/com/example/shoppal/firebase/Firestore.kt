@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.shoppal.MainActivity
+import com.example.shoppal.activities.DashboardActivity
 import com.example.shoppal.activities.UserProfileActivity
 import com.example.shoppal.models.User
 import com.example.shoppal.utils.Constants
@@ -24,7 +24,7 @@ class Firestore(private val baseActivity: Activity) {
     /**
      * Uploads user profile details to firestore, saves these details to sharedPreferences and start activity of UserProfileActivity
      */
-    fun uploadUserDetails(user: User, startMainActivity: Boolean) {
+    fun uploadUserDetails(user: User, startDashboardActivity: Boolean) {
         db.collection(Constants.USERS)
             .document(user.id)
             .set(user, SetOptions.merge())
@@ -42,8 +42,8 @@ class Firestore(private val baseActivity: Activity) {
                     //Finishing base activity
                     baseActivity.finish()
                 }
-                if (startMainActivity && user.profileCompleted == 1) {
-                    baseActivity.startActivity(Intent(baseActivity, MainActivity::class.java))
+                if (startDashboardActivity && user.profileCompleted == 1) {
+                    baseActivity.startActivity(Intent(baseActivity, DashboardActivity::class.java))
                     baseActivity.finish()
                 }
             }
@@ -89,7 +89,7 @@ class Firestore(private val baseActivity: Activity) {
                         val user: User = document.toObject(User::class.java)!!
                         //Saving user profile details to sharedPreferences
                         saveUserProfileDetails(user)
-                        //If user's profile is completed, start UserProfileActivity otherwise MainActivity
+                        //If user's profile is completed, start UserProfileActivity otherwise DashboardActivity
                         if (user.profileCompleted == 0) {
                             baseActivity.startActivity(
                                 Intent(
@@ -101,7 +101,7 @@ class Firestore(private val baseActivity: Activity) {
                             baseActivity.startActivity(
                                 Intent(
                                     baseActivity,
-                                    MainActivity::class.java
+                                    DashboardActivity::class.java
                                 )
                             )
                         }

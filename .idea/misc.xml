@@ -9,18 +9,34 @@
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/btn_gender_text_color.xml" value="0.1" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/button_background.xml" value="0.11458333333333333" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/gradient_color.xml" value="0.2703125" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.17533783783783785" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.17533783783783785" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.17533783783783785" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/ic_person.xml" value="0.1" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/ic_settings.xml" value="0.17533783783783785" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/ic_shop.xml" value="0.2703125" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/profile_image_background.xml" value="0.1" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/drawable/text_input_background_stroke.xml" value="0.2703125" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_dashboard.xml" value="0.16486486486486487" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_forgot.xml" value="0.152" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_main.xml" value="0.16486486486486487" />
-        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_profile_session.xml" value="0.16486486486486487" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_register.xml" value="0.144" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_settings.xml" value="0.16486486486486487" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_splash2.xml" value="0.1" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_user_profile.xml" value="0.16" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/content_profile_session.xml" value="0.16486486486486487" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_blank.xml" value="0.15574324324324323" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_dashboard.xml" value="0.16486486486486487" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_first.xml" value="0.16486486486486487" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_home.xml" value="0.16" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_notifications.xml" value="0.16486486486486487" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_second.xml" value="0.16486486486486487" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16486486486486487" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/menu/profile_info_menu.xml" value="0.16486486486486487" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/mipmap-anydpi-v26/app_launcher_icon.xml" value="0.26615384615384613" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14814814814814814" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.14814814814814814" />

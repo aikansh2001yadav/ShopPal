@@ -5,7 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
-import com.example.shoppal.MainActivity
+import com.example.shoppal.activities.DashboardActivity
 import com.example.shoppal.utils.Constants
 import com.example.shoppal.utils.Tags
 import com.google.firebase.firestore.ktx.firestore
@@ -70,7 +70,7 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
     }
 
     /**
-     * Updates profile image url of the current user and start MainActivity if task is successful
+     * Updates profile image url of the current user and start DashboardActivity if task is successful
      */
     private fun updateProfileImageUrl(downloadUrl: String) {
         Firebase.firestore.collection(Constants.USERS)
@@ -78,7 +78,7 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
             .update(mapOf("profileImage" to downloadUrl))
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    baseActivity.startActivity(Intent(baseActivity, MainActivity::class.java))
+                    baseActivity.startActivity(Intent(baseActivity, DashboardActivity::class.java))
                     baseActivity.finish()
                 } else {
                     Toast.makeText(baseActivity, "Something went wrong", Toast.LENGTH_SHORT).show()

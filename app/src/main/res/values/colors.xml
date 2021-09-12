@@ -8,6 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="themePrimaryColor">#304ffe</color>
+    <color name="themePrimaryLightColor">#7a7cff</color>
+    <color name="themePrimaryDarkColor">#0026ca</color>
+    <color name="themeSecondaryColor">#00bcd4</color>
+    <color name="themeSecondaryLightColor">#62efff</color>
+    <color name="themeSecondaryDarkColor">#008ba3</color>
 
     <color name="blue">#0000F3</color>
     <color name="teal">#FF018786</color>

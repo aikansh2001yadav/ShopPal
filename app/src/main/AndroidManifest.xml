@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shoppal">
+    package="com.example.shoppal" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_launcher_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_launcher_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ShopPal">
+        android:theme="@style/Theme.ShopPal" >
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            android:exported="true" />
+        <activity
+            android:name=".activities.DashboardActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ShopPal" />
         <activity
             android:name=".activities.UserProfileActivity"
             android:exported="true"
@@ -26,22 +35,11 @@
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
