@@ -1,10 +1,8 @@
 package com.example.shoppal.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import com.example.shoppal.MainActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppal.R
 import java.util.*
 import kotlin.concurrent.schedule

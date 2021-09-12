@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppal.R
 import com.example.shoppal.firebase.Firestore
 import com.example.shoppal.models.User
+import com.example.shoppal.utils.Tags
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
@@ -19,8 +20,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        //Adding on click listener on below views
         findViewById<TextView>(R.id.text_login_back).setOnClickListener(this)
         findViewById<View>(R.id.btn_register).setOnClickListener(this)
+
         setActionBarWithBack()
     }
 
@@ -42,12 +45,12 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     /**
      * Validates input information given by the user and give suggestions
      */
-    private fun validateDetails(): Boolean {
-        val email = findViewById<EditText>(R.id.edit_text_register_email).text.toString()
-        val password = findViewById<EditText>(R.id.edit_text_register_password).text.toString()
+    private fun validateDetails(email:String, password:String): Boolean {
+        //Stores confirm password entered by the user
         val confirmPassword =
             findViewById<EditText>(R.id.edit_text_confirm_password).text.toString()
 
+        //Giving suggestions to the user if something is not valid and return false otherwise return true
         if (findViewById<EditText>(R.id.edit_text_register_name).text.toString().isEmpty()) {
             Toast.makeText(this@RegisterActivity, "Please enter name", Toast.LENGTH_SHORT).show()
             return false
@@ -94,15 +97,18 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
      * Tries to create user and uploads user details after successful creation of the user
      */
     private fun tryRegister() {
-        if (validateDetails()) {
-            val email = findViewById<EditText>(R.id.edit_text_register_email).text.toString()
-            val password = findViewById<EditText>(R.id.edit_text_register_password).text.toString()
+        //Stores email entered by the user
+        val email = findViewById<EditText>(R.id.edit_text_register_email).text.toString()
+        //Stores password entered by the user
+        val password = findViewById<EditText>(R.id.edit_text_register_password).text.toString()
+        if (validateDetails(email, password)) {
             val firebaseAuth = FirebaseAuth.getInstance()
+            //Creating user
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d("Signup", "createUserWithEmail:success")
+                        Log.d(Tags.SIGNUP, "createUserWithEmail:success")
                         val id = firebaseAuth.currentUser?.uid
                         if (id != null) {
                             val userName =
@@ -119,12 +125,12 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                                     "",
                                     "",
                                     0
-                                )
+                                ), true
                             )
                         }
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w("Signup", "createUserWithEmail:failure", task.exception)
+                        Log.w(Tags.SIGNUP, "createUserWithEmail:failure", task.exception)
                         Toast.makeText(
                             this, "Authentication failed.",
                             Toast.LENGTH_SHORT

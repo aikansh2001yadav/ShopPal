@@ -17,6 +17,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //Adding on click listener on below views
         findViewById<View>(R.id.btn_login).setOnClickListener(this)
         findViewById<TextView>(R.id.text_register).setOnClickListener(this)
         findViewById<TextView>(R.id.text_forgot).setOnClickListener(this)

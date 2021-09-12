@@ -8,6 +8,7 @@ import com.example.shoppal.MainActivity
 import com.example.shoppal.activities.UserProfileActivity
 import com.example.shoppal.models.User
 import com.example.shoppal.utils.Constants
+import com.example.shoppal.utils.Tags
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
@@ -23,16 +24,15 @@ class Firestore(private val baseActivity: Activity) {
     /**
      * Uploads user profile details to firestore, saves these details to sharedPreferences and start activity of UserProfileActivity
      */
-    fun uploadUserDetails(user: User) {
+    fun uploadUserDetails(user: User, startMainActivity: Boolean) {
         db.collection(Constants.USERS)
             .document(user.id)
             .set(user, SetOptions.merge())
             .addOnSuccessListener {
-                Log.d("UploadSuccess", "DocumentSnapshot successfully written!")
+                Log.d(Tags.PROFILE_DETAILS_UPLOAD, "DocumentSnapshot successfully written!")
                 //Saving user details to sharedPreferences
                 saveUserProfileDetails(user)
                 if (user.profileCompleted == 0) {
-                    //Starting UserProfileActivity
                     baseActivity.startActivity(
                         Intent(
                             baseActivity,
@@ -41,12 +41,19 @@ class Firestore(private val baseActivity: Activity) {
                     )
                     //Finishing base activity
                     baseActivity.finish()
-                } else {
+                }
+                if (startMainActivity && user.profileCompleted == 1) {
                     baseActivity.startActivity(Intent(baseActivity, MainActivity::class.java))
                     baseActivity.finish()
                 }
             }
-            .addOnFailureListener { e -> Log.w("UploadFailure", "Error writing document", e) }
+            .addOnFailureListener { e ->
+                Log.w(
+                    Tags.PROFILE_DETAILS_UPLOAD,
+                    "Error writing document",
+                    e
+                )
+            }
     }
 
 
@@ -77,7 +84,7 @@ class Firestore(private val baseActivity: Activity) {
                 .document(currentUser.uid)
                 .get()
                 .addOnSuccessListener { document ->
-                    if (document != null) {
+                    if (document.data != null) {
                         //Creating an instance of User from document reference
                         val user: User = document.toObject(User::class.java)!!
                         //Saving user profile details to sharedPreferences
@@ -99,13 +106,13 @@ class Firestore(private val baseActivity: Activity) {
                             )
                         }
                         baseActivity.finish()
-                        Log.d("GET_DETAILS_SUCCESS", "DocumentSnapshot data: ${document.data}")
+                        Log.d(Tags.GET_PROFILE_DETAILS, "DocumentSnapshot data: ${document.data}")
                     } else {
-                        Log.d("DETAILS_NOT_FOUND", "No such document")
+                        Log.d(Tags.GET_PROFILE_DETAILS, "No such document")
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Log.d("GET_DETAILS_FAILURE", "get failed with ", exception)
+                    Log.d(Tags.GET_PROFILE_DETAILS, "get failed with ", exception)
                 }
         }
     }
