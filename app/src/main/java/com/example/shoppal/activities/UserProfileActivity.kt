@@ -15,10 +15,12 @@ import com.bumptech.glide.Glide
 import com.example.shoppal.R
 import com.example.shoppal.firebase.FirebaseStorage
 import com.example.shoppal.firebase.Firestore
+import com.example.shoppal.interfaces.UserProfileDetailsInterface
 import com.example.shoppal.models.User
 import com.example.shoppal.utils.Constants
 
-class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
+class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfileDetailsInterface {
+    private var transitionFromSettings = false
     /**
      * Stores image url stored firebase storage
      */
@@ -42,6 +44,7 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
+        transitionFromSettings = intent.getBooleanExtra(Constants.TRANSITION_FROM_SETTINGS, false)
         content = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             //Getting profile image and setting uri into profile image view with glide
             Glide.with(this).load(uri).into(findViewById(R.id.profile_imageview))
@@ -49,65 +52,13 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         //Sets user profile details
-        setUserProfileDetails()
+        setUserDetails()
 
         //Setting on click listener on below views
         findViewById<ImageView>(R.id.profile_imageview).setOnClickListener(this)
         findViewById<View>(R.id.btn_profile_submit).setOnClickListener(this)
     }
 
-    /**
-     * Sets user profile details from the sharedPreferences
-     */
-    private fun setUserProfileDetails() {
-        val sharedPreferences = this.getSharedPreferences(Constants.USER_PREF, Context.MODE_PRIVATE)
-        //Stores image url of the user from shared preferences
-        val imageUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, null)
-        //If image url is not null, then set profile image of the user using glide
-        if (imageUrl != null) {
-            Glide.with(this).load(sharedPreferences.getString(Constants.PROFILE_IMAGE, null))
-                .into(findViewById(R.id.profile_imageview))
-            profileImage = imageUrl
-        }
-        //Stores current user id
-        currentUserId = sharedPreferences.getString(Constants.ID, "")!!
-        //Sets profile name of the user
-        findViewById<EditText>(R.id.edit_text_profile_name).setText(
-            sharedPreferences.getString(
-                Constants.NAME,
-                ""
-            )
-        )
-        //Sets profile last name of the user
-        findViewById<EditText>(R.id.edit_text_profile_last_name).setText(
-            sharedPreferences.getString(
-                Constants.LAST_NAME,
-                ""
-            )
-        )
-        //Sets profile email of the user
-        findViewById<EditText>(R.id.edit_text_profile_email).setText(
-            sharedPreferences.getString(
-                Constants.EMAIL,
-                ""
-            )
-        )
-        //Sets profile phone number of the user
-        findViewById<EditText>(R.id.edit_text_profile_phone).setText(
-            sharedPreferences.getString(
-                Constants.MOBILE_NUMBER,
-                ""
-            )
-        )
-        //Stores gender of the user
-        val gender = sharedPreferences.getString(Constants.GENDER, "")
-        //Checks male or female depending on the gender of the user
-        if (gender.equals(Constants.MALE)) {
-            findViewById<RadioButton>(R.id.btn_male).isChecked = true
-        } else if (gender.equals(Constants.FEMALE)) {
-            findViewById<RadioButton>(R.id.btn_female).isChecked = true
-        }
-    }
 
     /**
      * Validates input information given by the user and give suggestions
@@ -168,15 +119,45 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
                 gender,
                 1
             )
-            if (uri != null) {
-                Firestore(this@UserProfileActivity).uploadUserDetails(user, false)
-                FirebaseStorage(currentUserId, this@UserProfileActivity).uploadImage(
-                    uri!!,
-                    profileImage
-                )
-            } else {
-                Firestore(this@UserProfileActivity).uploadUserDetails(user, true)
+            if(transitionFromSettings){
+                uploadDetailsMainActivity(user)
+            }else{
+                uploadDetailsDashboardActivity(user)
             }
+    }}
+
+    private fun uploadDetailsDashboardActivity(user:User){
+        if (uri != null) {
+            Firestore(this@UserProfileActivity).uploadUserDetails(user,
+                startDashboardActivity = false,
+                backToSettingsActivity = false
+            )
+            FirebaseStorage(currentUserId, this@UserProfileActivity).uploadImage(
+                uri!!,
+                profileImage, false
+            )
+        } else {
+            Firestore(this@UserProfileActivity).uploadUserDetails(user,
+                startDashboardActivity = true,
+                backToSettingsActivity = false
+            )
+        }
+    }
+    private fun uploadDetailsMainActivity(user:User){
+        if (uri != null) {
+            Firestore(this@UserProfileActivity).uploadUserDetails(user,
+                startDashboardActivity = false,
+                backToSettingsActivity = false
+            )
+            FirebaseStorage(currentUserId, this@UserProfileActivity).uploadImage(
+                uri!!,
+                profileImage, true
+            )
+        } else {
+            Firestore(this@UserProfileActivity).uploadUserDetails(user,
+                startDashboardActivity = false,
+                backToSettingsActivity = true
+            )
         }
     }
 
@@ -190,6 +171,59 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
                     content.launch("image/*")
                 }
             }
+        }
+    }
+
+    /**
+     * Sets user profile details from the sharedPreferences
+     */
+    override fun setUserDetails() {
+        val sharedPreferences = this.getSharedPreferences(Constants.USER_PREF, Context.MODE_PRIVATE)
+        //Stores image url of the user from shared preferences
+        val imageUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, null)
+        //If image url is not null, then set profile image of the user using glide
+        if (imageUrl != null) {
+            Glide.with(this).load(imageUrl)
+                .into(findViewById(R.id.profile_imageview))
+            profileImage = imageUrl
+        }
+        //Stores current user id
+        currentUserId = sharedPreferences.getString(Constants.ID, "")!!
+        //Sets profile name of the user
+        findViewById<EditText>(R.id.edit_text_profile_name).setText(
+            sharedPreferences.getString(
+                Constants.NAME,
+                ""
+            )
+        )
+        //Sets profile last name of the user
+        findViewById<EditText>(R.id.edit_text_profile_last_name).setText(
+            sharedPreferences.getString(
+                Constants.LAST_NAME,
+                ""
+            )
+        )
+        //Sets profile email of the user
+        findViewById<EditText>(R.id.edit_text_profile_email).setText(
+            sharedPreferences.getString(
+                Constants.EMAIL,
+                ""
+            )
+        )
+        //Sets profile phone number of the user
+        findViewById<EditText>(R.id.edit_text_profile_phone).setText(
+            sharedPreferences.getString(
+                Constants.MOBILE_NUMBER,
+                ""
+            )
+        )
+        //Stores gender of the user
+        val gender = sharedPreferences.getString(Constants.GENDER, "")
+        //Checks male or female depending on the gender of the user
+        if (gender.equals(Constants.MALE)) {
+            findViewById<RadioButton>(R.id.btn_male).isChecked = true
+        } else if (gender.equals(Constants.FEMALE)) {
+            findViewById<RadioButton>(R.id.btn_female).isChecked = true
         }
     }
 }

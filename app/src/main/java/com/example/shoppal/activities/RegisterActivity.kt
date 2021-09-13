@@ -126,6 +126,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                                     "",
                                     0
                                 ), true
+                            , backToSettingsActivity = false
                             )
                         }
                     } else {

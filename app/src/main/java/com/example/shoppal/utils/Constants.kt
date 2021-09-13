@@ -17,4 +17,6 @@ object Constants {
 
     const val MALE = "Male"
     const val FEMALE = "Female"
+
+    const val TRANSITION_FROM_SETTINGS = "transition_from_settings"
 }

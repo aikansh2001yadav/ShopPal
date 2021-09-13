@@ -22,7 +22,7 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
     /**
      * Uploads profile image on Firebase Storage, deletes earlier profile image stored and update profile details
      */
-    fun uploadImage(uri: Uri, imageUrl: String) {
+    fun uploadImage(uri: Uri, imageUrl: String, backToSettingsActivity:Boolean) {
         //If image is uploaded successfully, then update profile details and delete current profile image from storage
         val ref = storageInstance.reference.child("images/" + UUID.randomUUID().toString())
         ref.putFile(uri)
@@ -31,7 +31,7 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
                     if (task.isSuccessful) {
                         val downloadUri = task.result
                         if (downloadUri != null) {
-                            updateProfileImageUrl(downloadUri.toString())
+                            updateProfileImageUrl(downloadUri.toString(), backToSettingsActivity)
                         } else {
                             Toast.makeText(
                                 baseActivity,
@@ -72,14 +72,20 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
     /**
      * Updates profile image url of the current user and start DashboardActivity if task is successful
      */
-    private fun updateProfileImageUrl(downloadUrl: String) {
+    private fun updateProfileImageUrl(downloadUrl: String, backToSettingsActivity: Boolean) {
         Firebase.firestore.collection(Constants.USERS)
             .document(currentUserId)
             .update(mapOf("profileImage" to downloadUrl))
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    baseActivity.startActivity(Intent(baseActivity, DashboardActivity::class.java))
-                    baseActivity.finish()
+                    if(backToSettingsActivity){
+                        baseActivity.finish()
+                    }else{
+                        val intent = Intent(baseActivity, DashboardActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        baseActivity.startActivity(intent)
+                        baseActivity.finish()
+                    }
                 } else {
                     Toast.makeText(baseActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }

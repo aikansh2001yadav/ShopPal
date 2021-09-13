@@ -24,7 +24,7 @@ class Firestore(private val baseActivity: Activity) {
     /**
      * Uploads user profile details to firestore, saves these details to sharedPreferences and start activity of UserProfileActivity
      */
-    fun uploadUserDetails(user: User, startDashboardActivity: Boolean) {
+    fun uploadUserDetails(user: User, startDashboardActivity: Boolean, backToSettingsActivity:Boolean) {
         db.collection(Constants.USERS)
             .document(user.id)
             .set(user, SetOptions.merge())
@@ -43,7 +43,12 @@ class Firestore(private val baseActivity: Activity) {
                     baseActivity.finish()
                 }
                 if (startDashboardActivity && user.profileCompleted == 1) {
-                    baseActivity.startActivity(Intent(baseActivity, DashboardActivity::class.java))
+                    val intent = Intent(baseActivity, DashboardActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    baseActivity.startActivity(intent)
+                    baseActivity.finish()
+                }
+                if(backToSettingsActivity && user.profileCompleted == 1){
                     baseActivity.finish()
                 }
             }
