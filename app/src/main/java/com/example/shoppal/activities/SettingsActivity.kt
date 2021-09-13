@@ -18,14 +18,14 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, UserProfileD
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        //Sets user details of the current user
-        setUserDetails()
-
         //Sets on click listener on below views
         findViewById<TextView>(R.id.btn_edit_settings).setOnClickListener(this)
         findViewById<View>(R.id.btn_settings_logout).setOnClickListener(this)
     }
 
+    /**
+     * Sets user details of the current user
+     */
     override fun setUserDetails() {
         val sharedPreferences = this.getSharedPreferences(Constants.USER_PREF, Context.MODE_PRIVATE)
         val imageUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, null)
@@ -35,8 +35,18 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, UserProfileD
         val name = sharedPreferences.getString(Constants.NAME, "")
         val lastName = sharedPreferences.getString(Constants.LAST_NAME, "")
         findViewById<EditText>(R.id.text_profile_settings_name).setText("$name $lastName")
-        findViewById<EditText>(R.id.text_profile_settings_email).setText(sharedPreferences.getString(Constants.EMAIL, ""))
-        findViewById<EditText>(R.id.text_profile_settings_number).setText(sharedPreferences.getString(Constants.MOBILE_NUMBER, ""))
+        findViewById<EditText>(R.id.text_profile_settings_email).setText(
+            sharedPreferences.getString(
+                Constants.EMAIL,
+                ""
+            )
+        )
+        findViewById<EditText>(R.id.text_profile_settings_number).setText(
+            sharedPreferences.getString(
+                Constants.MOBILE_NUMBER,
+                ""
+            )
+        )
     }
 
     override fun onClick(view: View?) {
@@ -47,7 +57,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, UserProfileD
                     intent.putExtra(Constants.TRANSITION_FROM_SETTINGS, true)
                     startActivity(intent)
                 }
-                R.id.btn_settings_logout ->{
+                R.id.btn_settings_logout -> {
                     //Logout current user
                     Firebase(this).logoutUser()
                 }
@@ -55,4 +65,9 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, UserProfileD
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        //Sets user details of the current user
+        setUserDetails()
+    }
 }

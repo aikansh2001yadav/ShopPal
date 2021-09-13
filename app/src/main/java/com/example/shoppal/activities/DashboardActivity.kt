@@ -45,6 +45,7 @@ class DashboardActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.profile_info -> {
+                //Starts SettingsActivity activity
                 startActivity(Intent(this@DashboardActivity, SettingsActivity::class.java))
             }
         }

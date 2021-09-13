@@ -55,7 +55,7 @@ class Firebase(private val baseActivity: Activity) {
     /**
      * Logouts the current user
      */
-    fun logoutUser(){
+    fun logoutUser() {
         firebaseAuth.signOut()
         val intent = Intent(baseActivity, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -20,7 +20,11 @@ import com.example.shoppal.models.User
 import com.example.shoppal.utils.Constants
 
 class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfileDetailsInterface {
+    /**
+     * Stores boolean value which shows that UserProfileActivity started after transition from SettingsActivity
+     */
     private var transitionFromSettings = false
+
     /**
      * Stores image url stored firebase storage
      */
@@ -44,6 +48,7 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
+        //Storing boolean value of transition from settings in transitionFromSetting variable
         transitionFromSettings = intent.getBooleanExtra(Constants.TRANSITION_FROM_SETTINGS, false)
         content = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             //Getting profile image and setting uri into profile image view with glide
@@ -119,45 +124,43 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
                 gender,
                 1
             )
-            if(transitionFromSettings){
-                uploadDetailsMainActivity(user)
-            }else{
+            if (transitionFromSettings) {
+                uploadDetailsSettingsActivity(user)
+            } else {
                 uploadDetailsDashboardActivity(user)
             }
-    }}
+        }
+    }
 
-    private fun uploadDetailsDashboardActivity(user:User){
+    /**
+     * Uploads details to the firebase and then start Dashboard Activity
+     */
+    private fun uploadDetailsDashboardActivity(user: User) {
+        //If uri is not null, upload user details, upload profile image and then start DashboardActivity else upload user details and start DashboardActivity
         if (uri != null) {
-            Firestore(this@UserProfileActivity).uploadUserDetails(user,
-                startDashboardActivity = false,
-                backToSettingsActivity = false
-            )
+            Firestore(this@UserProfileActivity).uploadUserDetails(user)
             FirebaseStorage(currentUserId, this@UserProfileActivity).uploadImage(
                 uri!!,
                 profileImage, false
             )
         } else {
-            Firestore(this@UserProfileActivity).uploadUserDetails(user,
-                startDashboardActivity = true,
-                backToSettingsActivity = false
-            )
+            Firestore(this@UserProfileActivity).uploadUserDetailsDashboardActivity(user)
         }
     }
-    private fun uploadDetailsMainActivity(user:User){
+
+    /**
+     * Uploads details to the firebase and then start Settings Activity
+     */
+    private fun uploadDetailsSettingsActivity(user: User) {
+        //If uri is not null, upload user details, upload profile image and then start SettingsActivity else upload user details and start SettingsActivity
         if (uri != null) {
-            Firestore(this@UserProfileActivity).uploadUserDetails(user,
-                startDashboardActivity = false,
-                backToSettingsActivity = false
-            )
+            Firestore(this@UserProfileActivity).uploadUserDetails(user)
             FirebaseStorage(currentUserId, this@UserProfileActivity).uploadImage(
                 uri!!,
                 profileImage, true
             )
         } else {
-            Firestore(this@UserProfileActivity).uploadUserDetails(user,
-                startDashboardActivity = false,
-                backToSettingsActivity = true
-            )
+            Firestore(this@UserProfileActivity).uploadUserDetailsSettingsActivity(user)
         }
     }
 

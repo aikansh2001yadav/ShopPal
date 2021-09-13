@@ -13,7 +13,6 @@ object Constants {
     const val PROFILE_IMAGE = "user_profile_image"
     const val MOBILE_NUMBER = "user_mobile"
     const val GENDER = "user_gender"
-    const val PROFILE_COMPLETED = "profile_completed"
 
     const val MALE = "Male"
     const val FEMALE = "Female"

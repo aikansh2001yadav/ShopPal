@@ -22,9 +22,9 @@ class Firestore(private val baseActivity: Activity) {
     private val db = Firebase.firestore
 
     /**
-     * Uploads user profile details to firestore, saves these details to sharedPreferences and start activity of UserProfileActivity
+     * Uploads user details on firebase and starts UserProfileActivity if profile is not completed
      */
-    fun uploadUserDetails(user: User, startDashboardActivity: Boolean, backToSettingsActivity:Boolean) {
+    fun uploadUserDetails(user: User) {
         db.collection(Constants.USERS)
             .document(user.id)
             .set(user, SetOptions.merge())
@@ -39,25 +39,58 @@ class Firestore(private val baseActivity: Activity) {
                             UserProfileActivity::class.java
                         )
                     )
-                    //Finishing base activity
-                    baseActivity.finish()
-                }
-                if (startDashboardActivity && user.profileCompleted == 1) {
-                    val intent = Intent(baseActivity, DashboardActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    baseActivity.startActivity(intent)
-                    baseActivity.finish()
-                }
-                if(backToSettingsActivity && user.profileCompleted == 1){
                     baseActivity.finish()
                 }
             }
-            .addOnFailureListener { e ->
-                Log.w(
-                    Tags.PROFILE_DETAILS_UPLOAD,
-                    "Error writing document",
-                    e
-                )
+    }
+
+    /**
+     * Uploads user details on firebase and start Dashboard Activity if profile is not completed else start UserProfileActivity
+     */
+    fun uploadUserDetailsDashboardActivity(user: User) {
+        db.collection(Constants.USERS)
+            .document(user.id)
+            .set(user, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.d(Tags.PROFILE_DETAILS_UPLOAD, "DocumentSnapshot successfully written!")
+                //Saving user details to sharedPreferences
+                saveUserProfileDetails(user)
+                if (user.profileCompleted == 0) {
+                    baseActivity.startActivity(
+                        Intent(
+                            baseActivity,
+                            UserProfileActivity::class.java
+                        )
+                    )
+                } else {
+                    val intent = Intent(baseActivity, DashboardActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    baseActivity.startActivity(intent)
+                }
+                baseActivity.finish()
+            }
+    }
+
+    /**
+     * Uploads user details on firebase and start Settings Activity if profile is not completed else start UserProfileActivity
+     */
+    fun uploadUserDetailsSettingsActivity(user: User) {
+        db.collection(Constants.USERS)
+            .document(user.id)
+            .set(user, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.d(Tags.PROFILE_DETAILS_UPLOAD, "DocumentSnapshot successfully written!")
+                //Saving user details to sharedPreferences
+                saveUserProfileDetails(user)
+                if (user.profileCompleted == 0) {
+                    baseActivity.startActivity(
+                        Intent(
+                            baseActivity,
+                            UserProfileActivity::class.java
+                        )
+                    )
+                }
+                baseActivity.finish()
             }
     }
 

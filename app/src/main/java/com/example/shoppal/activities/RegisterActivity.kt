@@ -45,7 +45,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     /**
      * Validates input information given by the user and give suggestions
      */
-    private fun validateDetails(email:String, password:String): Boolean {
+    private fun validateDetails(email: String, password: String): Boolean {
         //Stores confirm password entered by the user
         val confirmPassword =
             findViewById<EditText>(R.id.edit_text_confirm_password).text.toString()
@@ -115,7 +115,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                                 findViewById<EditText>(R.id.edit_text_register_name).text.toString()
                             val userLastName =
                                 findViewById<EditText>(R.id.edit_text_register_last_name).text.toString()
-                            Firestore(this@RegisterActivity).uploadUserDetails(
+                            Firestore(this@RegisterActivity).uploadUserDetailsDashboardActivity(
                                 User(
                                     id,
                                     userName,
@@ -125,8 +125,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                                     "",
                                     "",
                                     0
-                                ), true
-                            , backToSettingsActivity = false
+                                )
                             )
                         }
                     } else {

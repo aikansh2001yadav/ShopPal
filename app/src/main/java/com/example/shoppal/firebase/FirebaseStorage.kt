@@ -1,6 +1,7 @@
 package com.example.shoppal.firebase
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -20,9 +21,9 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
     private val storageInstance = FirebaseStorage.getInstance()
 
     /**
-     * Uploads profile image on Firebase Storage, deletes earlier profile image stored and update profile details
+     * Uploads profile image on Firebase Storage, deletes earlier profile image stored and update profile details and start next activity based on backToSettingsActivity boolean value
      */
-    fun uploadImage(uri: Uri, imageUrl: String, backToSettingsActivity:Boolean) {
+    fun uploadImage(uri: Uri, imageUrl: String, backToSettingsActivity: Boolean) {
         //If image is uploaded successfully, then update profile details and delete current profile image from storage
         val ref = storageInstance.reference.child("images/" + UUID.randomUUID().toString())
         ref.putFile(uri)
@@ -31,7 +32,11 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
                     if (task.isSuccessful) {
                         val downloadUri = task.result
                         if (downloadUri != null) {
-                            updateProfileImageUrl(downloadUri.toString(), backToSettingsActivity)
+                            if (backToSettingsActivity) {
+                                updateProfileImageUrlSettingsActivity(downloadUri.toString())
+                            } else {
+                                updateProfileImageUrlDashboardActivity(downloadUri.toString())
+                            }
                         } else {
                             Toast.makeText(
                                 baseActivity,
@@ -70,25 +75,51 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
     }
 
     /**
-     * Updates profile image url of the current user and start DashboardActivity if task is successful
+     * Updates profile image url in firebase and sharedPreferences, and then start SettingsActivity
      */
-    private fun updateProfileImageUrl(downloadUrl: String, backToSettingsActivity: Boolean) {
+    private fun updateProfileImageUrlSettingsActivity(downloadUrl: String) {
         Firebase.firestore.collection(Constants.USERS)
             .document(currentUserId)
             .update(mapOf("profileImage" to downloadUrl))
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    if(backToSettingsActivity){
-                        baseActivity.finish()
-                    }else{
-                        val intent = Intent(baseActivity, DashboardActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                        baseActivity.startActivity(intent)
-                        baseActivity.finish()
-                    }
+                    saveProfileImage(downloadUrl)
+                    baseActivity.finish()
                 } else {
                     Toast.makeText(baseActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
+    /**
+     * Updates profile image url in firebase and sharedPreferences, and then start DashboardActivity
+     */
+    private fun updateProfileImageUrlDashboardActivity(downloadUrl: String) {
+        Firebase.firestore.collection(Constants.USERS)
+            .document(currentUserId)
+            .update(mapOf("profileImage" to downloadUrl))
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    saveProfileImage(downloadUrl)
+                    val intent = Intent(baseActivity, DashboardActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    baseActivity.startActivity(intent)
+                    baseActivity.finish()
+                } else {
+                    Toast.makeText(baseActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    /**
+     * Save profile image url in sharedPreferences
+     */
+    private fun saveProfileImage(downloadUrl: String) {
+        val sharedPreferences =
+            baseActivity.getSharedPreferences(Constants.USER_PREF, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(Constants.PROFILE_IMAGE, downloadUrl)
+        editor.apply()
+    }
+
 }
