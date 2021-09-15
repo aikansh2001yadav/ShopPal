@@ -40,4 +40,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="logout_text">Logout</string>
     <string name="edit_text">Edit Details</string>
+    <string name="shopping_image_text">Shopping image</string>
+    <string name="add_to_cart_text">ADD TO CART</string>
+    <string name="buy_text">Buy</string>
+    <string name="sample_description_text">sdfkljssssssfjsdlkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkksdfs</string>
 </resources>
