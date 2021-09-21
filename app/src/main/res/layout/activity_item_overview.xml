@@ -28,9 +28,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/shopping_item_imageview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:contentDescription="Item Image"
+                    android:contentDescription="@string/shopping_item_image_description"
+                    android:padding="@dimen/margin_padding"
                     android:src="@drawable/ic_person" />
             </androidx.cardview.widget.CardView>
 
@@ -44,17 +46,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/card_item_imageview">
 
                 <TextView
+                    android:id="@+id/text_book_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_layout"
-                    android:text="How to win friends and influence people"
                     android:textSize="@dimen/item_name_size" />
 
                 <TextView
+                    android:id="@+id/text_book_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_start"
+                    android:layout_marginEnd="@dimen/margin_end"
+                    android:textSize="@dimen/item_author_size" />
+
+                <TextView
+                    android:id="@+id/text_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_layout"
-                    android:text="$1.99"
                     android:textSize="@dimen/item_price_size" />
 
                 <LinearLayout
@@ -66,6 +76,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/text_cart"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_margin="@dimen/margin_layout"
@@ -98,10 +109,11 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/text_image_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_layout"
-                    android:text="@string/sample_description_text" />
+                    android:textSize="@dimen/description_size" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

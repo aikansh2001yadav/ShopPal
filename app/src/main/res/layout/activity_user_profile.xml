@@ -40,8 +40,8 @@
 
             <LinearLayout
                 android:id="@+id/ll_profile_image"
-                android:layout_width="@dimen/profile_image_width"
-                android:layout_height="@dimen/profile_image_length"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_length"
                 android:layout_margin="@dimen/margin_layout"
                 android:background="@drawable/profile_image_background"
                 android:orientation="vertical"

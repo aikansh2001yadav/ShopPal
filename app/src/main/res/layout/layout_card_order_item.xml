@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/order_imageview"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_length"
+        android:layout_gravity="center"
+        android:contentDescription="@string/shopping_item_description" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/image_length"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginEnd="@dimen/margin_end"
+            android:text="Sample"
+            android:textSize="@dimen/shopping_item_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start"
+            android:layout_marginEnd="@dimen/margin_end"
+            android:text="price"
+            android:textSize="@dimen/default_text_size" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_subtract"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:contentDescription="@string/minus_description"
+        app:srcCompat="@drawable/ic_minimize" />
+
+    <TextView
+        android:id="@+id/text_count"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/count_background"
+        android:gravity="center"
+        android:text="@string/default_count"
+        android:textSize="@dimen/count_text_size" />
+
+    <ImageButton
+        android:id="@+id/btn_sum"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:contentDescription="@string/plus_description"
+        app:srcCompat="@drawable/ic_add" />
+
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:contentDescription="@string/delete_description"
+        app:srcCompat="@drawable/ic_delete" />
+</LinearLayout>

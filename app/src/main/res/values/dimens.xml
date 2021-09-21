@@ -18,9 +18,9 @@
     <dimen name="radio_button_margin">5dp</dimen>
     <dimen name="image_background_corner_radius">6dp</dimen>
     <dimen name="gender_button_radius">6dp</dimen>
-    <dimen name="profile_image_width">75dp</dimen>
-    <dimen name="profile_image_length">100dp</dimen>
-    <dimen name="profile_stroke_width">4dp</dimen>
+    <dimen name="image_width">75dp</dimen>
+    <dimen name="image_length">100dp</dimen>
+    <dimen name="profile_stroke_width">2dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -28,10 +28,32 @@
     <dimen name="text_logout_size">16sp</dimen>
     <dimen name="edit_size">16sp</dimen>
     <dimen name="settings_text_size">16sp</dimen>
-    <dimen name="shopping_type_corner">6dp</dimen>
+    <dimen name="shopping_type_corner">12dp</dimen>
     <dimen name="shopping_type_padding">5dp</dimen>
     <dimen name="item_name_size">24sp</dimen>
     <dimen name="item_price_size">16sp</dimen>
     <dimen name="text_add_to_cart_size">16sp</dimen>
     <dimen name="btn_margin_layout">8dp</dimen>
+    <dimen name="margin_padding">16dp</dimen>
+    <dimen name="shopping_item_corner">20dp</dimen>
+    <dimen name="shopping_item_elevation">10dp</dimen>
+    <dimen name="shopping_item_max_elevation">12dp</dimen>
+    <dimen name="shopping_item_imageview_height">200dp</dimen>
+    <dimen name="description_size">14sp</dimen>
+    <dimen name="item_author_size">20sp</dimen>
+    <dimen name="margin_end">15dp</dimen>
+    <dimen name="margin_start">15dp</dimen>
+    <dimen name="item_margin_layout">10dp</dimen>
+    <dimen name="subtotal_size">20sp</dimen>
+    <dimen name="charge_size">20sp</dimen>
+    <dimen name="default_top_margin">15dp</dimen>
+    <dimen name="total_size">20sp</dimen>
+    <dimen name="checkout_text_size">16sp</dimen>
+    <dimen name="default_text_size">16sp</dimen>
+    <dimen name="margin_top">15dp</dimen>
+    <dimen name="margin_minimize_bottom">5dp</dimen>
+    <dimen name="count_text_size">24sp</dimen>
+    <dimen name="count_stroke_width">1dp</dimen>
+    <dimen name="shopping_item_size">20sp</dimen>
+    <dimen name="layout_width">100dp</dimen>
 </resources>

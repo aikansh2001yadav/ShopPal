@@ -18,4 +18,9 @@ object Constants {
     const val FEMALE = "Female"
 
     const val TRANSITION_FROM_SETTINGS = "transition_from_settings"
+    const val PRODUCTS = "products"
+    const val ITEM_DATA = "ITEM_DATA"
+    const val SHOPPING_ITEM_BUNDLE = "SHOPPING_ITEM_BUNDLE"
+
+    const val CART_PREF = "cart_pref"
 }

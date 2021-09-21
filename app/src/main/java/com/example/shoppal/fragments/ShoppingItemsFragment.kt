@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppal.R
 import com.example.shoppal.adapters.ShoppingItemsAdapter
 import com.example.shoppal.adapters.ShoppingTypeAdapter
+import com.example.shoppal.firebase.RealtimeDatabase
+import com.example.shoppal.models.Product
 
 class ShoppingItemsFragment : Fragment() {
 
+    private lateinit var shoppingItemsRecyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,7 +33,7 @@ class ShoppingItemsFragment : Fragment() {
                 "Business",
                 "Cookbooks",
                 "Mystery",
-                "Sci-fi",
+                "Scifi",
                 "Accessories"
             )
         )
@@ -39,17 +42,17 @@ class ShoppingItemsFragment : Fragment() {
             view.findViewById<RecyclerView>(R.id.recyclerview_shopping_type)
         shoppingTypeRecyclerView.apply {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            this.adapter = ShoppingTypeAdapter(context, shoppingTypeList)
+            this.adapter = ShoppingTypeAdapter(this@ShoppingItemsFragment, shoppingTypeList)
         }
 
-        val shoppingRecyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_shopping_items)
-        val itemList = ArrayList<String>()
-        for (i in 0..15) {
-            itemList.add("hello")
-        }
-        shoppingRecyclerView.apply {
-            this.layoutManager = GridLayoutManager(context, 2)
-            this.adapter = ShoppingItemsAdapter(context, itemList)
-        }
+        shoppingItemsRecyclerView =
+            view.findViewById(R.id.recyclerview_shopping_items)
+        shoppingItemsRecyclerView.layoutManager = GridLayoutManager(context, 2)
+        RealtimeDatabase(this).readDatabase(shoppingTypeList[0].lowercase())
+    }
+
+    fun updateUI(shoppingItemsList: ArrayList<Product>) {
+        shoppingItemsRecyclerView.adapter =
+            ShoppingItemsAdapter(requireContext(), shoppingItemsList)
     }
 }

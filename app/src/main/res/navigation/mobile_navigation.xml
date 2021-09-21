@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.shoppal.fragments.ShoppingItemsFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_shop"
         tools:layout="@layout/fragment_shopping_items" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.shoppal.fragments.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_cart"
+        android:name="com.example.shoppal.fragments.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_cart" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_orders"
         android:name="com.example.shoppal.fragments.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_orders"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

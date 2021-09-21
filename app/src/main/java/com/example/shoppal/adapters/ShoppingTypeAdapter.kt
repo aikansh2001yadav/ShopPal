@@ -7,16 +7,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppal.R
+import com.example.shoppal.firebase.RealtimeDatabase
+import com.example.shoppal.fragments.ShoppingItemsFragment
 
-class ShoppingTypeAdapter(private val context:Context, private val itemsTypeList:ArrayList<String>) : RecyclerView.Adapter<ShoppingTypeAdapter.ShoppingTypeViewHolder>() {
+class ShoppingTypeAdapter(private val shoppingItemsFragment:ShoppingItemsFragment, private val itemsTypeList:ArrayList<String>) : RecyclerView.Adapter<ShoppingTypeAdapter.ShoppingTypeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingTypeViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.layout_shopping_type, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_shopping_type, parent, false)
         return ShoppingTypeViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ShoppingTypeViewHolder, position: Int) {
         holder.getTypeTextView().text = itemsTypeList[position]
+        holder.getTypeTextView().setOnClickListener {
+            RealtimeDatabase(shoppingItemsFragment).readDatabase(itemsTypeList[position].lowercase())
+        }
     }
 
     override fun getItemCount(): Int {

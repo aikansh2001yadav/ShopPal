@@ -23,9 +23,9 @@
     <string name="male_text">Male</string>
     <string name="female_text">Female</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_orders">Orders</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="settings_text">Settings</string>
@@ -44,4 +44,18 @@
     <string name="add_to_cart_text">ADD TO CART</string>
     <string name="buy_text">Buy</string>
     <string name="sample_description_text">sdfkljssssssfjsdlkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkksdfs</string>
+    <string name="shopping_item_image_description">Shopping Item Image</string>
+    <string name="text_item_name_sample">Item Name</string>
+    <string name="text_item_price_sample">price</string>
+    <string name="subtotal_text">Subtotal</string>
+    <string name="charge_text">Shipping Charge</string>
+    <string name="total_text">Total Amount</string>
+    <string name="checkout_text">Checkout</string>
+    <string name="card_details_text">Card Details</string>
+    <string name="shopping_item_description">Cart Item Imageview</string>
+    <string name="delete_description">Delete Cart Button</string>
+    <string name="default_count">1</string>
+    <string name="plus_description">Plus Button</string>
+    <string name="minus_description">Minus Button</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
