@@ -58,4 +58,5 @@
     <string name="plus_description">Plus Button</string>
     <string name="minus_description">Minus Button</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="go_to_cart_string">GO TO CART</string>
 </resources>

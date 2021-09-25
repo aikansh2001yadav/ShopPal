@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppal.R
 import com.example.shoppal.firebase.Firestore
 import com.example.shoppal.models.User
+import com.example.shoppal.utils.Constants
 import com.example.shoppal.utils.Tags
 import com.google.firebase.auth.FirebaseAuth
 

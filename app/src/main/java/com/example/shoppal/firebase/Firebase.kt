@@ -62,4 +62,8 @@ class Firebase(private val baseActivity: Activity) {
         baseActivity.startActivity(intent)
         baseActivity.finish()
     }
+
+    fun currentUserId() : String{
+        return firebaseAuth.currentUser!!.uid
+    }
 }
