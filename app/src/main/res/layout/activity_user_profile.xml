@@ -79,6 +79,7 @@
                         android:id="@+id/edit_text_profile_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:hint="@string/first_name_hint"
                         android:inputType="textPersonName"
                         tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -96,6 +97,7 @@
                         android:id="@+id/edit_text_profile_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:hint="@string/last_name_hint"
                         android:inputType="textPersonName"
                         tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -116,7 +118,8 @@
                     android:id="@+id/edit_text_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPersonName"
+                    android:hint="@string/email_hint"
+                    android:inputType="textEmailAddress"
                     tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/enter_phone_hint"
-                    android:inputType="textPersonName" />
+                    android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <RadioGroup
@@ -156,11 +159,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/radio_button_margin"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_gender_background"
+                    android:background="@drawable/btn_selector_background"
                     android:button="@null"
                     android:gravity="center"
                     android:text="@string/male_text"
-                    android:textColor="@drawable/btn_gender_text_color"
+                    android:textColor="@drawable/btn_selector_text_color"
                     android:textStyle="bold" />
 
                 <RadioButton
@@ -169,11 +172,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/radio_button_margin"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_gender_background"
+                    android:background="@drawable/btn_selector_background"
                     android:button="@null"
                     android:gravity="center"
                     android:text="@string/female_text"
-                    android:textColor="@drawable/btn_gender_text_color"
+                    android:textColor="@drawable/btn_selector_text_color"
                     android:textStyle="bold" />
             </RadioGroup>
 

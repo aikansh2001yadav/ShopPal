@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppal.R
 import com.example.shoppal.adapters.ShoppingItemsAdapter
 import com.example.shoppal.adapters.ShoppingTypeAdapter
-import com.example.shoppal.firebase.RealtimeDatabase
+import com.example.shoppal.firebase.ShoppingItemsDatabase
 import com.example.shoppal.models.Product
 
 class ShoppingItemsFragment : Fragment() {
@@ -48,11 +48,13 @@ class ShoppingItemsFragment : Fragment() {
         shoppingItemsRecyclerView =
             view.findViewById(R.id.recyclerview_shopping_items)
         shoppingItemsRecyclerView.layoutManager = GridLayoutManager(context, 2)
-        RealtimeDatabase(this).readDatabase(shoppingTypeList[0].lowercase())
+        ShoppingItemsDatabase(this).readDatabase(shoppingTypeList[0].lowercase())
     }
 
     fun updateUI(shoppingItemsList: ArrayList<Product>) {
-        shoppingItemsRecyclerView.adapter =
-            ShoppingItemsAdapter(requireContext(), shoppingItemsList)
+        if (isAdded) {
+            shoppingItemsRecyclerView.adapter =
+                ShoppingItemsAdapter(requireContext(), shoppingItemsList)
+        }
     }
 }

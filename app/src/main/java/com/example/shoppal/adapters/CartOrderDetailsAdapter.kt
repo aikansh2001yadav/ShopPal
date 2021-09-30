@@ -11,19 +11,18 @@ import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.example.shoppal.R
 import com.example.shoppal.fragments.CartFragment
-import com.example.shoppal.room.databases.CartOrderDatabase
+import com.example.shoppal.room.databases.RoomDatabase
 import com.example.shoppal.room.entities.CartOrder
 
 class CartOrderDetailsAdapter(
     private val fragment: CartFragment,
-    private val cartOrdersList: ArrayList<CartOrder>,
-    private val cartOrdersQuantity: ArrayList<Int>
+    private val cartOrdersList: ArrayList<CartOrder>
 ) : RecyclerView.Adapter<CartOrderDetailsAdapter.CardOrderDetailsViewHolder>() {
 
     private val cartDao = Room.databaseBuilder(
         fragment.requireContext(),
-        CartOrderDatabase::class.java,
-        "cart_database"
+        RoomDatabase::class.java,
+        "offline_temp_database"
     ).allowMainThreadQueries().build().cartDao()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardOrderDetailsViewHolder {
@@ -38,11 +37,11 @@ class CartOrderDetailsAdapter(
             .into(holder.getOrderImageView())
         holder.getOrderNameTextView().text = cartOrdersList[position].itemName
         holder.getOrderPriceTextView().text = cartOrdersList[position].itemPrice.toString()
-        holder.getCountTextView().text = cartOrdersQuantity[position].toString()
+        holder.getCountTextView().text = cartOrdersList[position].itemCount.toString()
 
         holder.getDeleteButton().setOnClickListener {
             var subTotal = fragment.getSubtotal()
-            subTotal -= cartOrdersQuantity[position] * cartOrdersList[position].itemPrice!!
+            subTotal -= cartOrdersList[position].itemCount * cartOrdersList[position].itemPrice!!
             if(cartOrdersList.size == 1){
                 fragment.setAmountDetails(subTotal, 0.0)
             }else{
@@ -52,17 +51,18 @@ class CartOrderDetailsAdapter(
             deleteCurrentOrder(position)
         }
         holder.getSumButton().setOnClickListener {
-            cartOrdersQuantity[position]++
-            holder.getCountTextView().text = cartOrdersQuantity[position].toString()
+            cartOrdersList[position].itemCount++
+            holder.getCountTextView().text = cartOrdersList[position].itemCount.toString()
             var subTotal = fragment.getSubtotal()
             subTotal += cartOrdersList[position].itemPrice!!
             fragment.setAmountDetails(subTotal, 15.0)
             fragment.setSubtotal(subTotal)
+            cartDao.insertOrder(cartOrdersList[position])
         }
         holder.getSubtractButton().setOnClickListener {
             var subTotal = fragment.getSubtotal()
             subTotal -= cartOrdersList[position].itemPrice!!
-            if (cartOrdersQuantity[position] == 1) {
+            if (cartOrdersList[position].itemCount == 1) {
                 if (cartOrdersList.size == 1) {
                     fragment.setAmountDetails(subTotal, 0.0)
                 } else {
@@ -70,9 +70,10 @@ class CartOrderDetailsAdapter(
                 }
                 deleteCurrentOrder(position)
             } else {
-                cartOrdersQuantity[position]--
-                holder.getCountTextView().text = cartOrdersQuantity[position].toString()
+                cartOrdersList[position].itemCount--
+                holder.getCountTextView().text = cartOrdersList[position].itemCount.toString()
                 fragment.setAmountDetails(subTotal, 15.0)
+                cartDao.insertOrder(cartOrdersList[position])
             }
             fragment.setSubtotal(subTotal)
         }

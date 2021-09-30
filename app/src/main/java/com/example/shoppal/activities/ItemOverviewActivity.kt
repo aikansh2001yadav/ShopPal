@@ -11,7 +11,7 @@ import com.example.shoppal.R
 import com.example.shoppal.firebase.Firebase
 import com.example.shoppal.models.Product
 import com.example.shoppal.room.daos.CartDao
-import com.example.shoppal.room.databases.CartOrderDatabase
+import com.example.shoppal.room.databases.RoomDatabase
 import com.example.shoppal.room.entities.CartOrder
 import com.example.shoppal.utils.Constants
 import java.util.*
@@ -27,8 +27,8 @@ class ItemOverviewActivity : AppCompatActivity(), View.OnClickListener {
 
         cartDao = Room.databaseBuilder(
             this@ItemOverviewActivity,
-            CartOrderDatabase::class.java,
-            "cart_database"
+            RoomDatabase::class.java,
+            "offline_temp_database"
         ).allowMainThreadQueries().build().cartDao()
 
         val currentUserId = Firebase(this@ItemOverviewActivity).currentUserId()
@@ -73,7 +73,8 @@ class ItemOverviewActivity : AppCompatActivity(), View.OnClickListener {
                 currentUserId,
                 product.name,
                 product.price,
-                product.img
+                product.img,
+                1
             )
         )
     }

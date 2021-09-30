@@ -11,13 +11,16 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 
-class RealtimeDatabase(private val shoppingItemsFragment: ShoppingItemsFragment) {
+class ShoppingItemsDatabase(
+    private val shoppingItemsFragment: ShoppingItemsFragment?
+) {
     private val databaseInstance =
         FirebaseDatabase.getInstance("https://shoppal-42b45-default-rtdb.asia-southeast1.firebasedatabase.app")
     private var key: String = ""
 
-    fun readDatabase(category:String) {
-        val databaseRef = databaseInstance.getReference(Constants.PRODUCTS).orderByChild("category").equalTo( category)
+    fun readDatabase(category: String) {
+        val databaseRef = databaseInstance.getReference(Constants.PRODUCTS).orderByChild("category")
+            .equalTo(category)
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -28,7 +31,7 @@ class RealtimeDatabase(private val shoppingItemsFragment: ShoppingItemsFragment)
                     shoppingItemsList.add(childSnapshot.getValue<Product>()!!)
                     Log.d(Tags.READ_DATABASE_STATUS, "key is: $key")
                 }
-                shoppingItemsFragment.updateUI(shoppingItemsList)
+                shoppingItemsFragment!!.updateUI(shoppingItemsList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -37,5 +40,4 @@ class RealtimeDatabase(private val shoppingItemsFragment: ShoppingItemsFragment)
             }
         })
     }
-
 }

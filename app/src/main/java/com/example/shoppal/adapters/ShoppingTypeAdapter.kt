@@ -1,13 +1,12 @@
 package com.example.shoppal.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppal.R
-import com.example.shoppal.firebase.RealtimeDatabase
+import com.example.shoppal.firebase.ShoppingItemsDatabase
 import com.example.shoppal.fragments.ShoppingItemsFragment
 
 class ShoppingTypeAdapter(private val shoppingItemsFragment:ShoppingItemsFragment, private val itemsTypeList:ArrayList<String>) : RecyclerView.Adapter<ShoppingTypeAdapter.ShoppingTypeViewHolder>() {
@@ -20,7 +19,7 @@ class ShoppingTypeAdapter(private val shoppingItemsFragment:ShoppingItemsFragmen
     override fun onBindViewHolder(holder: ShoppingTypeViewHolder, position: Int) {
         holder.getTypeTextView().text = itemsTypeList[position]
         holder.getTypeTextView().setOnClickListener {
-            RealtimeDatabase(shoppingItemsFragment).readDatabase(itemsTypeList[position].lowercase())
+            ShoppingItemsDatabase(shoppingItemsFragment).readDatabase(itemsTypeList[position].lowercase())
         }
     }
 

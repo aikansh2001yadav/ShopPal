@@ -4,6 +4,7 @@ package com.example.shoppal.utils
  * Contains constant values for use as keys
  */
 object Constants {
+    const val ORDERS = "orders"
     const val USER_PREF = "user_pref"
     const val ID = "user_id"
     const val USERS = "users"
@@ -21,4 +22,5 @@ object Constants {
     const val PRODUCTS = "products"
     const val ITEM_DATA = "ITEM_DATA"
     const val SHOPPING_ITEM_BUNDLE = "SHOPPING_ITEM_BUNDLE"
+    const val ADDRESS_ID = "ADDRESS_ID"
 }
