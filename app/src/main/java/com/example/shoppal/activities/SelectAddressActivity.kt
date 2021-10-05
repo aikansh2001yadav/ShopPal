@@ -13,8 +13,10 @@ import com.example.shoppal.firebase.Firebase
 import com.example.shoppal.room.daos.AddressDao
 import com.example.shoppal.room.databases.RoomDatabase
 import com.example.shoppal.room.entities.AddressDetail
+import com.example.shoppal.utils.Constants
 
 class SelectAddressActivity : AppCompatActivity() {
+    private var directBuyStatus = false
     private lateinit var currentUserId: String
     private lateinit var addressDao: AddressDao
     private lateinit var addressRecyclerView: RecyclerView
@@ -22,6 +24,7 @@ class SelectAddressActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_activity_address)
 
+        directBuyStatus = intent.getBooleanExtra(Constants.DIRECT_BUY_STATUS, false)
         addressDao = Room.databaseBuilder(
             this@SelectAddressActivity,
             RoomDatabase::class.java,
@@ -41,7 +44,8 @@ class SelectAddressActivity : AppCompatActivity() {
 
         addressRecyclerView.adapter = AddressDetailsAdapter(
             this@SelectAddressActivity,
-            addressDetailsList as ArrayList<AddressDetail>
+            addressDetailsList as ArrayList<AddressDetail>,
+            directBuyStatus
         )
     }
 }

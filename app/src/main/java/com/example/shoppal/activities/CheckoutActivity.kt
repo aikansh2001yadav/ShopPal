@@ -1,6 +1,7 @@
 package com.example.shoppal.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -20,18 +21,24 @@ import com.example.shoppal.room.databases.RoomDatabase
 import com.example.shoppal.room.entities.AddressDetail
 import com.example.shoppal.room.entities.CartOrder
 import com.example.shoppal.utils.Constants
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 import kotlin.math.abs
 
 class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var checkoutAddressDetail: AddressDetail
     private lateinit var currentUserId: String
-    private lateinit var checkoutProductsList: ArrayList<CartOrder>
+    private  var checkoutProductsList  = ArrayList<CartOrder>()
     private lateinit var checkoutProductsDB: RoomDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
 
+        val directBuyStatus = intent.getBooleanExtra(Constants.DIRECT_BUY_STATUS, false)
         val addressId = intent.getLongExtra(Constants.ADDRESS_ID, 0)
         currentUserId = Firebase(this@CheckoutActivity).currentUserId()
         val checkoutProductsRecyclerView =
@@ -42,8 +49,14 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
             "offline_temp_database"
         ).allowMainThreadQueries().build()
         val checkoutProductsDao = checkoutProductsDB.cartDao()
-        checkoutProductsList =
-            checkoutProductsDao.getAllOrders(currentUserId) as ArrayList<CartOrder>
+        val currentProductDao = checkoutProductsDB.productDao()
+        if(directBuyStatus){
+            val currentProduct = currentProductDao.getProducts(currentUserId)[0]
+            checkoutProductsList.add(CartOrder(currentProduct.orderId, currentUserId, currentProduct.itemName, currentProduct.itemPrice, currentProduct.itemImageUrl, 1))
+        }else{
+            checkoutProductsList =
+                checkoutProductsDao.getAllOrders(currentUserId) as ArrayList<CartOrder>
+        }
         checkoutProductsRecyclerView.apply {
             this.adapter = CheckoutProductsAdapter(
                 this@CheckoutActivity,
@@ -89,11 +102,13 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
     private fun placeOrder() {
         val currentUserId = checkoutAddressDetail.currentUserId!!
         val orderId = UUID.randomUUID().toString()
+        val simpleDateFormat = SimpleDateFormat("d MMM, yyyy hh:hh a")
+        val orderDate: String = simpleDateFormat.format(Date())
         val productArrayList = arrayListOf<Order>()
         var subTotal = 0.0
         for (checkoutProduct in checkoutProductsList) {
             subTotal += checkoutProduct.itemCount * checkoutProduct.itemPrice!!
-            productArrayList.add(Order(checkoutProduct.orderId, checkoutProduct.itemCount))
+            productArrayList.add(Order(checkoutProduct.orderId, checkoutProduct.itemName!!, checkoutProduct.itemPrice, checkoutProduct.itemImageUrl!!, checkoutProduct.itemCount))
         }
         val address = Address(
             checkoutAddressDetail.addressFullName!!,
@@ -105,6 +120,8 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
         )
         val orderDetail = OrderDetail(
             orderId,
+            orderDate,
+            "Pending",
             address,
             OrderReceipt(
                 String.format("%.2f", abs(subTotal)),
@@ -119,10 +136,5 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
             currentUserId,
             orderDetail
         )
-    }
-
-    override fun onBackPressed() {
-        startActivity(Intent(this, SelectAddressActivity::class.java))
-        super.onBackPressed()
     }
 }

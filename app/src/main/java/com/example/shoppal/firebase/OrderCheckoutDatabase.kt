@@ -1,21 +1,16 @@
 package com.example.shoppal.firebase
 
-import android.util.Log
+import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.room.Room
 import com.example.shoppal.activities.CheckoutActivity
+import com.example.shoppal.activities.DashboardActivity
 import com.example.shoppal.models.OrderDetail
-import com.example.shoppal.models.Product
 import com.example.shoppal.room.databases.RoomDatabase
-import com.example.shoppal.utils.Constants
-import com.example.shoppal.utils.Tags
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 
-class OrderCheckoutDatabase(private val checkoutActivity: CheckoutActivity) {
+class OrderCheckoutDatabase(private val context: Context) {
     private val databaseInstance =
         FirebaseDatabase.getInstance("https://shoppal-42b45-default-rtdb.asia-southeast1.firebasedatabase.app")
 
@@ -25,20 +20,28 @@ class OrderCheckoutDatabase(private val checkoutActivity: CheckoutActivity) {
         orderDetail: OrderDetail
     ) {
         val cartDao = Room.databaseBuilder(
-            checkoutActivity,
+            context,
             RoomDatabase::class.java,
             "offline_temp_database"
         ).allowMainThreadQueries().build().cartDao()
+        val productDao = Room.databaseBuilder(
+            context,
+            RoomDatabase::class.java,
+            "offline_temp_database"
+        ).allowMainThreadQueries().build().productDao()
         databaseInstance.reference.child("orders").child(currentUserId).child(orderId)
             .setValue(orderDetail)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(checkoutActivity, "Order placed", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Order placed", Toast.LENGTH_SHORT)
                         .show()
                     cartDao.deleteOrders(currentUserId)
-                    checkoutActivity.finish()
+                    productDao.deleteProducts(currentUserId)
+                    val intent = Intent(context, DashboardActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    context.startActivity(intent)
                 } else {
-                    Toast.makeText(checkoutActivity, "Error: Order not placed", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Error: Order not placed", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

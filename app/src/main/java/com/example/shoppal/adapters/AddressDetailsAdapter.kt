@@ -1,6 +1,5 @@
 package com.example.shoppal.adapters
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -16,12 +15,13 @@ import com.example.shoppal.room.entities.AddressDetail
 import com.example.shoppal.utils.Constants
 
 class AddressDetailsAdapter(
-    private val activity: SelectAddressActivity,
-    private val addressDetailsList: ArrayList<AddressDetail>
+    private val context: Context,
+    private val addressDetailsList: ArrayList<AddressDetail>,
+    private val directBuyStatus:Boolean
 ) :
     RecyclerView.Adapter<AddressDetailsAdapter.AddressDetailsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressDetailsViewHolder {
-        val view = LayoutInflater.from(activity.applicationContext)
+        val view = LayoutInflater.from(context)
             .inflate(R.layout.layout_address_item, parent, false)
         return AddressDetailsViewHolder(view)
     }
@@ -33,10 +33,10 @@ class AddressDetailsAdapter(
             addressDetailsList[position].addressDetails + "," + addressDetailsList[position].addressPinCode
         holder.getPhoneTextView().text = addressDetailsList[position].addressPhone
         holder.getAddressCardView().setOnClickListener {
-            val intent = Intent(activity, CheckoutActivity::class.java)
+            val intent = Intent(context, CheckoutActivity::class.java)
+            intent.putExtra(Constants.DIRECT_BUY_STATUS, directBuyStatus)
             intent.putExtra(Constants.ADDRESS_ID, addressDetailsList[position].addressId)
-            activity.startActivity(intent)
-            activity.finish()
+            context.startActivity(intent)
         }
     }
 

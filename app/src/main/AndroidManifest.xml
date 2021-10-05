@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopPal">
         <activity
+            android:name=".activities.OrderItemActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
             android:name=".activities.CheckoutActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />

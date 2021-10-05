@@ -17,6 +17,7 @@ import com.example.shoppal.firebase.Firebase
 import com.example.shoppal.room.daos.CartDao
 import com.example.shoppal.room.databases.RoomDatabase
 import com.example.shoppal.room.entities.CartOrder
+import com.example.shoppal.utils.Constants
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -55,6 +56,8 @@ class CartFragment : Fragment() {
 
         view.findViewById<View>(R.id.btn_checkout).setOnClickListener {
             if (subTotal != 0.00) {
+                val intent = Intent(context, SelectAddressActivity::class.java)
+                intent.putExtra(Constants.DIRECT_BUY_STATUS, false)
                 startActivity(Intent(context, SelectAddressActivity::class.java))
             }
         }
