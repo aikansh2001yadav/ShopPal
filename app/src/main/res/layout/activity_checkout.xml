@@ -14,7 +14,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding"
+            android:layout_marginStart="@dimen/margin_start"
+            android:layout_marginEnd="@dimen/margin_end"
             android:text="@string/text_product_items"
             android:textSize="@dimen/checkout_font_size"
             android:textStyle="bold" />
@@ -27,7 +28,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding"
+            android:layout_marginStart="@dimen/margin_start"
+            android:layout_marginEnd="@dimen/margin_end"
             android:text="@string/text_selected_address"
             android:textSize="@dimen/checkout_font_size"
             android:textStyle="bold" />
@@ -46,19 +48,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/margin_padding">
+                android:layout_margin="5dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/text_checkout_address_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:textSize="@dimen/default_text_size" />
 
                 <TextView
                     android:id="@+id/text_checkout_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:textSize="@dimen/default_text_size"
                     android:textStyle="bold" />
 
@@ -67,12 +71,14 @@
                     android:id="@+id/text_checkout_full_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:textSize="@dimen/default_text_size" />
 
                 <TextView
                     android:id="@+id/text_checkout_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:textSize="@dimen/default_text_size" />
             </LinearLayout>
 
@@ -81,7 +87,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding"
+            android:layout_marginStart="@dimen/margin_start"
+            android:layout_marginEnd="@dimen/margin_end"
             android:text="@string/text_items_receipt"
             android:textSize="@dimen/checkout_font_size"
             android:textStyle="bold" />
@@ -89,16 +96,16 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="12dp"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:cardMaxElevation="@dimen/card_max_elevation"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin_layout"
+                android:layout_margin="5dp"
                 android:orientation="vertical">
 
                 <LinearLayout

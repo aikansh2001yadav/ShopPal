@@ -30,7 +30,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, UserProfileD
         val sharedPreferences = this.getSharedPreferences(Constants.USER_PREF, Context.MODE_PRIVATE)
         val imageUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, null)
         if (imageUrl != null) {
-            Glide.with(this).load(imageUrl).into(findViewById(R.id.profile_settings_imageview))
+            Glide.with(this).load(imageUrl).centerCrop().into(findViewById(R.id.profile_settings_imageview))
         }
         val name = sharedPreferences.getString(Constants.NAME, "")
         val lastName = sharedPreferences.getString(Constants.LAST_NAME, "")
@@ -53,6 +53,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, UserProfileD
         if (view != null) {
             when (view.id) {
                 R.id.btn_edit_settings -> {
+                    //Starts UserProfileActivity
                     val intent = Intent(this@SettingsActivity, UserProfileActivity::class.java)
                     intent.putExtra(Constants.TRANSITION_FROM_SETTINGS, true)
                     startActivity(intent)

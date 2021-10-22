@@ -12,9 +12,15 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 
 class OrderItemsDatabase(private val ordersFragment:OrdersFragment) {
+    /**
+     * Stores reference of database instance
+     */
     private val databaseInstance =
         FirebaseDatabase.getInstance("https://shoppal-42b45-default-rtdb.asia-southeast1.firebasedatabase.app")
 
+    /**
+     * Reads all order details of the current user from realtime database and then update UI
+     */
     fun readOrders(currentUserId: String) {
         val databaseReference =
             databaseInstance.getReference(Constants.ORDERS).child(currentUserId)
@@ -25,6 +31,7 @@ class OrderItemsDatabase(private val ordersFragment:OrdersFragment) {
                     orderDetailList.add(childSnapshot.getValue<OrderDetail>()!!)
                     Log.d(Tags.READ_ORDER_STATUS, "order id: ${childSnapshot.key}")
                 }
+                orderDetailList.sortByDescending { it.orderDate }
                 ordersFragment.updateUI(orderDetailList)
             }
 

@@ -42,6 +42,7 @@
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
             android:name=".activities.DashboardActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="true"
             android:theme="@style/Theme.ShopPal" />
         <activity

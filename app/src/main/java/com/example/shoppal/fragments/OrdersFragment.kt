@@ -15,6 +15,9 @@ import com.example.shoppal.models.OrderDetail
 
 class OrdersFragment : Fragment() {
 
+    /**
+     * Stores the reference of recyclerview that shows order status
+     */
     private lateinit var orderStatusRecyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,12 +30,17 @@ class OrdersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Initialising user id of the current user
         val currentUserId = Firebase(requireActivity()).currentUserId()
         orderStatusRecyclerView = view.findViewById(R.id.recyclerview_order_status)
         orderStatusRecyclerView.layoutManager = LinearLayoutManager(context)
+        //Getting all orders from OrderItemDatabase
         OrderItemsDatabase(this@OrdersFragment).readOrders(currentUserId)
     }
 
+    /**
+     * Updates UI
+     */
     fun updateUI(orderDetailList: ArrayList<OrderDetail>) {
         if (isAdded) {
             orderStatusRecyclerView.adapter = OrderItemsAdapter(requireContext(), orderDetailList)

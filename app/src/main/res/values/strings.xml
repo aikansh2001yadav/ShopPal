@@ -82,4 +82,6 @@
     <string name="text_order_date">Order Date</string>
     <string name="text_order_status">Order Status</string>
     <string name="text_order_details">Order Details</string>
+    <string name="search_content_description">Search Image</string>
+    <string name="type_something_hint">Type Something</string>
 </resources>

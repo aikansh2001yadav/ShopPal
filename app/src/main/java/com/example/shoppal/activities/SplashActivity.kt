@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppal.R
+import com.example.shoppal.firebase.Firebase
 import com.example.shoppal.firebase.Firestore
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
@@ -14,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        if (FirebaseAuth.getInstance().currentUser != null) {
+        if(FirebaseAuth.getInstance().currentUser != null) {
             //Delays 2 seconds for getting profile details and start next activity
             Timer().schedule(2000) {
                 Firestore(this@SplashActivity).getProfileDetails()

@@ -13,22 +13,32 @@ import com.example.shoppal.firebase.ProductItemDatabase
 import com.example.shoppal.models.OrderDetail
 import com.example.shoppal.models.Product
 import com.example.shoppal.utils.Constants
+import java.text.SimpleDateFormat
 
 class OrderItemActivity : AppCompatActivity() {
+    //Stores an instance of ProductItemDatabase
     private val productItemDatabase = ProductItemDatabase(this@OrderItemActivity)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_item)
 
+        //Stores id of the current user
         val currentUserId = Firebase(this).currentUserId()
+        //Stores order id of the current order
         val orderId = intent.getStringExtra(Constants.ORDER_ITEM)
 
+        //Populates all product items in the recyclerview which are in current order
         productItemDatabase.getOrder(orderId!!, currentUserId)
     }
 
+    /**
+     * Populates all views by inserting order's details
+     */
     fun populateActivity(orderItem: OrderDetail) {
         findViewById<TextView>(R.id.text_order_activity_id).text = orderItem.orderId
-        findViewById<TextView>(R.id.text_order_activity_order_date).text = orderItem.orderDate
+        val simpleDateFormat = SimpleDateFormat("d MMM, yyyy hh:mm a")
+        val orderDate: String = simpleDateFormat.format(orderItem.orderDate!!)
+        findViewById<TextView>(R.id.text_order_activity_order_date).text = orderDate
         findViewById<TextView>(R.id.text_order_activity_status).text = orderItem.orderStatus
 
         val orderItemRecyclerView = findViewById<RecyclerView>(R.id.recyclerview_order_items)

@@ -22,7 +22,11 @@
                 android:id="@+id/card_item_imageview"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                app:cardCornerRadius="4dp"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardMaxElevation="@dimen/card_max_elevation"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -108,12 +112,21 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/text_image_description"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_layout"
-                    android:textSize="@dimen/description_size" />
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardMaxElevation="@dimen/card_max_elevation"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+                    <TextView
+                        android:id="@+id/text_image_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_layout"
+                        android:textSize="@dimen/description_size" />
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

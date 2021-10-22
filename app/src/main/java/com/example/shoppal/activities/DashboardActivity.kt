@@ -36,7 +36,6 @@ class DashboardActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.setOnItemReselectedListener {
-            //do nothing
         }
     }
 

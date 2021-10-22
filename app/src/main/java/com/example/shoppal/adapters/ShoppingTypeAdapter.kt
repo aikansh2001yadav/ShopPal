@@ -17,20 +17,34 @@ class ShoppingTypeAdapter(private val shoppingItemsFragment:ShoppingItemsFragmen
     }
 
     override fun onBindViewHolder(holder: ShoppingTypeViewHolder, position: Int) {
+        //Sets category text
         holder.getTypeTextView().text = itemsTypeList[position]
+        //Adding on click listener on typeTextView that refreshes shopping items bases on the selected category
         holder.getTypeTextView().setOnClickListener {
+            shoppingItemsFragment.clearFocus()
             ShoppingItemsDatabase(shoppingItemsFragment).readDatabase(itemsTypeList[position].lowercase())
         }
     }
 
+    /**
+     * Returns size of itemsTypeList arraylist
+     */
     override fun getItemCount(): Int {
         return itemsTypeList.size
     }
 
     class ShoppingTypeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        /**
+         * Initialises typeTextView that shows category text
+         */
         private val typeTextView = itemView.findViewById<TextView>(R.id.text_item_type)
+
+        /**
+         * Returns reference of typeTextView
+         */
         fun getTypeTextView() : TextView{
             return typeTextView
         }
+
     }
 }

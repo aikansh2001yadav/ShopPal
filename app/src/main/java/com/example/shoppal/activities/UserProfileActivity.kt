@@ -52,7 +52,7 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
         transitionFromSettings = intent.getBooleanExtra(Constants.TRANSITION_FROM_SETTINGS, false)
         content = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             //Getting profile image and setting uri into profile image view with glide
-            Glide.with(this).load(uri).into(findViewById(R.id.profile_imageview))
+            Glide.with(this).load(uri).centerCrop().into(findViewById(R.id.profile_imageview))
             this.uri = uri
         }
 
@@ -186,7 +186,7 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
         val imageUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, null)
         //If image url is not null, then set profile image of the user using glide
         if (imageUrl != null) {
-            Glide.with(this).load(imageUrl)
+            Glide.with(this).load(imageUrl).centerCrop()
                 .into(findViewById(R.id.profile_imageview))
             profileImage = imageUrl
         }

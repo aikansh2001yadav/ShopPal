@@ -11,6 +11,7 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
+        //Starting CartFragment fragment
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_cart_container, CartFragment()).commit()
     }
