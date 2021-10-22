@@ -1,14 +1,15 @@
 package com.example.shoppal.firebase
 
-import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.shoppal.activities.ForgotActivity
 import com.example.shoppal.activities.LoginActivity
 import com.example.shoppal.utils.Tags
 import com.google.firebase.auth.FirebaseAuth
 
-class Firebase(private val baseActivity: Activity) {
+class Firebase(private val baseActivity: AppCompatActivity) {
     /**
      * Stores an instance of FirebaseAuth
      */
@@ -20,6 +21,9 @@ class Firebase(private val baseActivity: Activity) {
     fun loginUser(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
+                //Hides progress bar
+                val loginActivity = baseActivity as LoginActivity
+                loginActivity.hideProgressBar()
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(Tags.LOGIN, "signInWithEmail:success")
@@ -42,6 +46,9 @@ class Firebase(private val baseActivity: Activity) {
     fun sendPasswordResetEmail(email: String) {
         firebaseAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
+                //Hides progress bar
+                val forgotActivity = baseActivity as ForgotActivity
+                forgotActivity.hideProgressBar()
                 if (task.isSuccessful) {
                     Toast.makeText(
                         baseActivity,

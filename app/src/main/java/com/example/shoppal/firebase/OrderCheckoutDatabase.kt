@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.room.Room
+import com.example.shoppal.activities.CheckoutActivity
 import com.example.shoppal.activities.DashboardActivity
 import com.example.shoppal.models.OrderDetail
 import com.example.shoppal.room.databases.RoomDatabase
 import com.google.firebase.database.FirebaseDatabase
 
-class OrderCheckoutDatabase(private val context: Context) {
+class OrderCheckoutDatabase(private val checkoutActivity: CheckoutActivity) {
     /**
      * Stores reference of databaseInstance
      */
@@ -27,13 +28,13 @@ class OrderCheckoutDatabase(private val context: Context) {
     ) {
         //Initialises cart Dao from room database that performs actions on cart orders
         val cartDao = Room.databaseBuilder(
-            context,
+            checkoutActivity,
             RoomDatabase::class.java,
             "offline_temp_database"
         ).allowMainThreadQueries().build().cartDao()
         //Initialises product Dao from room database that performs actions on products
         val productDao = Room.databaseBuilder(
-            context,
+            checkoutActivity,
             RoomDatabase::class.java,
             "offline_temp_database"
         ).allowMainThreadQueries().build().productDao()
@@ -42,7 +43,7 @@ class OrderCheckoutDatabase(private val context: Context) {
             .setValue(orderDetail)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "Order placed", Toast.LENGTH_SHORT)
+                    Toast.makeText(checkoutActivity, "Order placed", Toast.LENGTH_SHORT)
                         .show()
                     //If some product is bought directly via itemOverViewActivity, delete product to be bought directly in room database
                     if(directBuyStatus){
@@ -51,12 +52,14 @@ class OrderCheckoutDatabase(private val context: Context) {
                         //Else, delete all orders from cart in room database
                         cartDao.deleteOrders(currentUserId)
                     }
+                    //Hides progress bar
+                    checkoutActivity.hideProgressBar()
                     //Starts DashboardActivity
-                    val intent = Intent(context, DashboardActivity::class.java)
+                    val intent = Intent(checkoutActivity, DashboardActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    context.startActivity(intent)
+                    checkoutActivity.startActivity(intent)
                 } else {
-                    Toast.makeText(context, "Error: Order not placed", Toast.LENGTH_SHORT)
+                    Toast.makeText(checkoutActivity, "Error: Order not placed", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

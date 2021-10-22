@@ -1,9 +1,10 @@
 package com.example.shoppal.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -16,6 +17,11 @@ import com.example.shoppal.room.entities.AddressDetail
 import com.example.shoppal.utils.Constants
 
 class SelectAddressActivity : AppCompatActivity() {
+    /**
+     * Shows reference of progress bar that shows progress
+     */
+    private var selectAddressProgressBar: ProgressBar? = null
+
     /**
      * Shows whether product is bought directly via ItemOverviewActivity
      */
@@ -39,6 +45,7 @@ class SelectAddressActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_activity_address)
 
+        selectAddressProgressBar = findViewById(R.id.activity_select_address_progress)
         //Initialising direct buy status
         directBuyStatus = intent.getBooleanExtra(Constants.DIRECT_BUY_STATUS, false)
         //Initialising addressDao
@@ -61,9 +68,13 @@ class SelectAddressActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        //Shows progress bar
+        selectAddressProgressBar!!.visibility = View.VISIBLE
         //Stores all addresses from addressDao in addressDetailsList
         val addressDetailsList = addressDao.getAllAddresses(currentUserId)
 
+        //Hides progress bar
+        selectAddressProgressBar!!.visibility = View.GONE
         //Refreshes address details list in the address recycler view
         addressRecyclerView.adapter = AddressDetailsAdapter(
             this@SelectAddressActivity,

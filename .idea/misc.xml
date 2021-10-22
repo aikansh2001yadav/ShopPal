@@ -26,7 +26,7 @@
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_add_address.xml" value="0.176" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_address.xml" value="0.152" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_cart.xml" value="0.15337837837837837" />
-        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_checkout.xml" value="0.128" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_checkout.xml" value="0.1" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_dashboard.xml" value="0.16486486486486487" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_forgot.xml" value="0.152" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/activity_item_overview.xml" value="0.15337837837837837" />
@@ -44,7 +44,7 @@
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/content_profile_session.xml" value="0.16486486486486487" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_address.xml" value="0.15337837837837837" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_blank.xml" value="0.15574324324324323" />
-        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_cart.xml" value="0.176" />
+        <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_cart.xml" value="0.264" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_dashboard.xml" value="0.16486486486486487" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_first.xml" value="0.16486486486486487" />
         <entry key="..\:/AndroidDevelopmentProjects/ShopPal/app/src/main/res/layout/fragment_home.xml" value="0.16" />

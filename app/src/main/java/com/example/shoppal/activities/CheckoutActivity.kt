@@ -2,6 +2,7 @@ package com.example.shoppal.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,10 +48,16 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
      * Stores the reference of room database
      */
     private var checkoutProductsDB: RoomDatabase? = null
+
+    /**
+     * Stores the reference of checkout progress bar that shows progress
+     */
+    private var checkoutProgressBar: ProgressBar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
 
+        checkoutProgressBar = findViewById(R.id.activity_checkout_progress)
         //Assigning direct buy status
         directBuyStatus = intent.getBooleanExtra(Constants.DIRECT_BUY_STATUS, false)
         //Storing address id of the address selected in SelectAddressActivity
@@ -88,9 +95,13 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
                 )
             )
         } else {
+            //Shows progress bar
+            checkoutProgressBar!!.visibility = View.VISIBLE
             //Adding all cart orders to be bought via checkout option in CartActivity
             checkoutProductsList =
                 checkoutProductsDao.getAllOrders(currentUserId) as ArrayList<CartOrder>
+            //Hides progress bar
+            checkoutProgressBar!!.visibility = View.GONE
         }
         //Shows all products to be bought in the recycler view
         checkoutProductsRecyclerView.apply {
@@ -148,6 +159,8 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
      * Places order and stores all related details on firebase realtime database
      */
     private fun placeOrder() {
+        //Shows progress bar
+        checkoutProgressBar!!.visibility = View.VISIBLE
         //Getting all address details and storing in constant variables
         val currentUserId = checkoutAddressDetail!!.currentUserId
         val orderId = UUID.randomUUID().toString()
@@ -197,5 +210,12 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
             currentUserId!!,
             orderDetail, directBuyStatus
         )
+    }
+
+    /**
+     * Hides progress bar
+     */
+    fun hideProgressBar() {
+        checkoutProgressBar!!.visibility = View.GONE
     }
 }

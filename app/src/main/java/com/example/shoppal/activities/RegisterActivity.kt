@@ -4,23 +4,25 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppal.R
 import com.example.shoppal.firebase.Firestore
 import com.example.shoppal.models.User
-import com.example.shoppal.utils.Constants
 import com.example.shoppal.utils.Tags
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
+    /**
+     * Shows reference of progress bar that shows progress
+     */
+    private var registerProgress: ProgressBar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        registerProgress = findViewById(R.id.activity_register_progress)
         //Adding on click listener on below views
         findViewById<TextView>(R.id.text_login_back).setOnClickListener(this)
         findViewById<View>(R.id.btn_register).setOnClickListener(this)
@@ -98,6 +100,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
      * Tries to create user and uploads user details after successful creation of the user
      */
     private fun tryRegister() {
+        hideKeyboard()
+        //Shows progress bar
+        registerProgress!!.visibility = View.VISIBLE
         //Stores email entered by the user
         val email = findViewById<EditText>(R.id.edit_text_register_email).text.toString()
         //Stores password entered by the user
@@ -138,6 +143,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                         ).show()
                     }
                 }
+        } else {
+            //Hides progress bar
+            registerProgress!!.visibility = View.GONE
         }
     }
 
@@ -152,5 +160,24 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    /**
+     * Hides keyboard
+     */
+    private fun hideKeyboard() {
+        try {
+            val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * Hides progress bar
+     */
+    fun hideProgressBar() {
+        registerProgress!!.visibility = View.GONE
     }
 }

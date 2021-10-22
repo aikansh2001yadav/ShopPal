@@ -3,6 +3,7 @@ package com.example.shoppal.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
@@ -19,6 +20,11 @@ import com.example.shoppal.utils.Constants
 import java.util.*
 
 class ItemOverviewActivity : AppCompatActivity(), View.OnClickListener {
+    /**
+     * Stores reference of progress bar that shows progress
+     */
+    private var itemOverviewActivityProgress: ProgressBar? = null
+
     /**
      * Stores user id of the current user
      */
@@ -52,6 +58,7 @@ class ItemOverviewActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_overview)
 
+        itemOverviewActivityProgress = findViewById(R.id.activity_item_overview_progress)
         //Storing user id of the current user
         currentUserId = Firebase(this).currentUserId()
         //Initialising cartDao
@@ -78,12 +85,16 @@ class ItemOverviewActivity : AppCompatActivity(), View.OnClickListener {
 
         cartTextView = findViewById(R.id.text_cart)
 
+        //Shows progress bar
+        itemOverviewActivityProgress!!.visibility = View.VISIBLE
         //Setting various details of the current product
         findViewById<TextView>(R.id.text_book_name).text = product.name
         findViewById<TextView>(R.id.text_book_author).text = "By ${product.author}"
         findViewById<TextView>(R.id.text_price).text = product.price.toString()
         findViewById<TextView>(R.id.text_image_description).text = product.description
 
+        //Hides progress bar
+        itemOverviewActivityProgress!!.visibility = View.GONE
         //Shows different details on the basis whether the product is already added to cart or not
         if (cartDao.exists(product.id, currentUserId)) {
             addToCartIsClicked = true

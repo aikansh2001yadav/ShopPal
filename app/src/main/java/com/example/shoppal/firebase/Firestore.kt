@@ -1,10 +1,11 @@
 package com.example.shoppal.firebase
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppal.activities.DashboardActivity
+import com.example.shoppal.activities.RegisterActivity
 import com.example.shoppal.activities.UserProfileActivity
 import com.example.shoppal.models.User
 import com.example.shoppal.utils.Constants
@@ -15,7 +16,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-class Firestore(private val baseActivity: Activity) {
+class Firestore(private val baseActivity: AppCompatActivity) {
     /**
      * Stores an instance of firestore
      */
@@ -56,6 +57,9 @@ class Firestore(private val baseActivity: Activity) {
                 //Saving user details to sharedPreferences
                 saveUserProfileDetails(user)
                 if (user.profileCompleted == 0) {
+                    //Shows progress bar
+                    val registerActivity = baseActivity as RegisterActivity
+                    registerActivity.hideProgressBar()
                     baseActivity.startActivity(
                         Intent(
                             baseActivity,
@@ -63,6 +67,8 @@ class Firestore(private val baseActivity: Activity) {
                         )
                     )
                 } else {
+                    val userProfileActivity = baseActivity as UserProfileActivity
+                    userProfileActivity.hideProgressBar()
                     val intent = Intent(baseActivity, DashboardActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     baseActivity.startActivity(intent)
@@ -82,6 +88,9 @@ class Firestore(private val baseActivity: Activity) {
                 Log.d(Tags.PROFILE_DETAILS_UPLOAD, "DocumentSnapshot successfully written!")
                 //Saving user details to sharedPreferences
                 saveUserProfileDetails(user)
+                //Shows progress bar
+                val userProfileActivity = baseActivity as UserProfileActivity
+                userProfileActivity.hideProgressBar()
                 if (user.profileCompleted == 0) {
                     baseActivity.startActivity(
                         Intent(

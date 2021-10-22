@@ -21,6 +21,8 @@ class ShoppingTypeAdapter(private val shoppingItemsFragment:ShoppingItemsFragmen
         holder.getTypeTextView().text = itemsTypeList[position]
         //Adding on click listener on typeTextView that refreshes shopping items bases on the selected category
         holder.getTypeTextView().setOnClickListener {
+            //Shows progress bar
+            shoppingItemsFragment.showProgressBar()
             shoppingItemsFragment.clearFocus()
             ShoppingItemsDatabase(shoppingItemsFragment).readDatabase(itemsTypeList[position].lowercase())
         }

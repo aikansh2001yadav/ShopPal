@@ -2,6 +2,7 @@ package com.example.shoppal.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -25,10 +26,16 @@ class AddAddressActivity : AppCompatActivity(), View.OnClickListener {
      */
     private var textOtherDetails: TextInputLayout? = null
 
+    /**
+     * Stores reference of progressBar that shows progress
+     */
+    private var addressProgressBar:ProgressBar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_address)
 
+        addressProgressBar = findViewById(R.id.add_address_progress)
         //Assigning address dao by room database builder
         addressDao = Room.databaseBuilder(
             this@AddAddressActivity,
@@ -73,6 +80,8 @@ class AddAddressActivity : AppCompatActivity(), View.OnClickListener {
      * Submit address details and store the address in room database
      */
     private fun submitDetails() {
+        //Shows progress bar
+        addressProgressBar!!.visibility = View.VISIBLE
         //Getting current user id via firebase
         val currentUserId = Firebase(this).currentUserId()
         //Storing various address details in constant variables
@@ -111,5 +120,7 @@ class AddAddressActivity : AppCompatActivity(), View.OnClickListener {
                 addressType
             )
         )
+        //Hides progress bar
+        addressProgressBar!!.visibility = View.GONE
     }
 }

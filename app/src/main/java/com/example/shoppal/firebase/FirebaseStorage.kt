@@ -7,6 +7,7 @@ import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import com.example.shoppal.activities.DashboardActivity
+import com.example.shoppal.activities.UserProfileActivity
 import com.example.shoppal.utils.Constants
 import com.example.shoppal.utils.Tags
 import com.google.firebase.firestore.ktx.firestore
@@ -120,6 +121,9 @@ class FirebaseStorage(private val currentUserId: String, private val baseActivit
         val editor = sharedPreferences.edit()
         editor.putString(Constants.PROFILE_IMAGE, downloadUrl)
         editor.apply()
+        val userProfileActivity = baseActivity as UserProfileActivity
+        //Hides progress bar
+        userProfileActivity.hideProgressBar()
     }
 
 }

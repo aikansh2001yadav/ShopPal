@@ -1,32 +1,40 @@
 package com.example.shoppal.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppal.R
 import com.example.shoppal.adapters.OrderAdapter
-import com.example.shoppal.adapters.OrderItemsAdapter
 import com.example.shoppal.firebase.Firebase
 import com.example.shoppal.firebase.ProductItemDatabase
 import com.example.shoppal.models.OrderDetail
-import com.example.shoppal.models.Product
 import com.example.shoppal.utils.Constants
 import java.text.SimpleDateFormat
 
 class OrderItemActivity : AppCompatActivity() {
+    /**
+     * Stores reference of progress bar that shows progress
+     */
+    private var orderItemProgress: ProgressBar? = null
+
     //Stores an instance of ProductItemDatabase
     private val productItemDatabase = ProductItemDatabase(this@OrderItemActivity)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_item)
 
+        orderItemProgress = findViewById(R.id.activity_order_item_progress)
         //Stores id of the current user
         val currentUserId = Firebase(this).currentUserId()
         //Stores order id of the current order
         val orderId = intent.getStringExtra(Constants.ORDER_ITEM)
 
+        //Shows progress bar
+        orderItemProgress!!.visibility = View.VISIBLE
         //Populates all product items in the recyclerview which are in current order
         productItemDatabase.getOrder(orderId!!, currentUserId)
     }
@@ -64,5 +72,7 @@ class OrderItemActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.text_order_payment_mode).text =
             orderItem.orderReceipt.paymentMode
+        //Hides progress bar
+        orderItemProgress!!.visibility = View.GONE
     }
 }

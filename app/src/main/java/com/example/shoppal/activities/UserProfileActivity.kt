@@ -4,10 +4,8 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +18,11 @@ import com.example.shoppal.models.User
 import com.example.shoppal.utils.Constants
 
 class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfileDetailsInterface {
+    /**
+     * Stores reference of progress bar that shows progress
+     */
+    private var userProfileProgressBar: ProgressBar? = null
+
     /**
      * Stores boolean value which shows that UserProfileActivity started after transition from SettingsActivity
      */
@@ -48,6 +51,7 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
+        userProfileProgressBar = findViewById(R.id.activity_user_profile_progress)
         //Storing boolean value of transition from settings in transitionFromSetting variable
         transitionFromSettings = intent.getBooleanExtra(Constants.TRANSITION_FROM_SETTINGS, false)
         content = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -105,6 +109,9 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
      * Try submitting details
      */
     private fun submitDetails() {
+        hideKeyboard()
+        //Shows progress bar
+        userProfileProgressBar!!.visibility = View.VISIBLE
         //Assigning gender variable according to its gender
         val gender: String = if (findViewById<RadioButton>(R.id.btn_male).isChecked) {
             Constants.MALE
@@ -129,6 +136,9 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
             } else {
                 uploadDetailsDashboardActivity(user)
             }
+        } else {
+            //Hides progress bar
+            userProfileProgressBar!!.visibility = View.GONE
         }
     }
 
@@ -164,6 +174,18 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
         }
     }
 
+    /**
+     * Hides keyboard
+     */
+    private fun hideKeyboard() {
+        try {
+            val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
@@ -181,6 +203,8 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
      * Sets user profile details from the sharedPreferences
      */
     override fun setUserDetails() {
+        //Shows progress bar
+        userProfileProgressBar!!.visibility = View.VISIBLE
         val sharedPreferences = this.getSharedPreferences(Constants.USER_PREF, Context.MODE_PRIVATE)
         //Stores image url of the user from shared preferences
         val imageUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, null)
@@ -228,5 +252,14 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener, UserProfi
         } else if (gender.equals(Constants.FEMALE)) {
             findViewById<RadioButton>(R.id.btn_female).isChecked = true
         }
+        //Hides progress bar
+        userProfileProgressBar!!.visibility = View.GONE
+    }
+
+    /**
+     * Hides progress bar
+     */
+    fun hideProgressBar() {
+        userProfileProgressBar!!.visibility = View.GONE
     }
 }

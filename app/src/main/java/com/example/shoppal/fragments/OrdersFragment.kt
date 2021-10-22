@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +16,11 @@ import com.example.shoppal.firebase.OrderItemsDatabase
 import com.example.shoppal.models.OrderDetail
 
 class OrdersFragment : Fragment() {
+
+    /**
+     * Stores reference of progress bar that shows progress
+     */
+    private var ordersProgressBar: ProgressBar? = null
 
     /**
      * Stores the reference of recyclerview that shows order status
@@ -30,10 +37,13 @@ class OrdersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        ordersProgressBar = view.findViewById(R.id.fragment_orders_progress)
         //Initialising user id of the current user
-        val currentUserId = Firebase(requireActivity()).currentUserId()
+        val currentUserId = Firebase(requireActivity() as AppCompatActivity).currentUserId()
         orderStatusRecyclerView = view.findViewById(R.id.recyclerview_order_status)
         orderStatusRecyclerView.layoutManager = LinearLayoutManager(context)
+        //Shows progress bar
+        ordersProgressBar!!.visibility = View.VISIBLE
         //Getting all orders from OrderItemDatabase
         OrderItemsDatabase(this@OrdersFragment).readOrders(currentUserId)
     }
@@ -45,5 +55,7 @@ class OrdersFragment : Fragment() {
         if (isAdded) {
             orderStatusRecyclerView.adapter = OrderItemsAdapter(requireContext(), orderDetailList)
         }
+        //Hides progress bar
+        ordersProgressBar!!.visibility = View.GONE
     }
 }

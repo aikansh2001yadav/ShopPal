@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,10 +21,14 @@ import com.example.shoppal.room.databases.RoomDatabase
 import com.example.shoppal.room.entities.CartOrder
 import com.example.shoppal.utils.Constants
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class CartFragment : Fragment() {
+
+    /**
+     * Stores reference of progress bar that shows progress
+     */
+    private var cartProgressBar: ProgressBar? = null
 
     /**
      * Stores the total price of cart orders
@@ -73,10 +79,11 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        cartProgressBar = view.findViewById(R.id.cart_fragment_progress)
         ordersRecyclerView = view.findViewById(R.id.recyclerview_orders)
 
         //Assigning user id of the current user
-        currentUserId = Firebase(requireActivity()).currentUserId()
+        currentUserId = Firebase(requireActivity() as AppCompatActivity).currentUserId()
         //Initialises cartDao
         cartDao = Room.databaseBuilder(
             requireContext(),
@@ -103,9 +110,13 @@ class CartFragment : Fragment() {
      * Removes item from cart orders list and then updates recyclerview
      */
     fun removeItem(position: Int) {
+        //Shows progress bar
+        cartProgressBar!!.visibility = View.VISIBLE
         cartOrdersList.removeAt(position)
         ordersRecyclerView.adapter =
             CartOrderDetailsAdapter(this@CartFragment, cartOrdersList)
+        //Hides progress bar
+        cartProgressBar!!.visibility = View.GONE
     }
 
     /**
@@ -134,6 +145,8 @@ class CartFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        //Shows progress bar
+        cartProgressBar!!.visibility = View.VISIBLE
         //Gets all the cart order from room database and store them in cartOrdersList arraylist
         cartOrdersList = cartDao.getAllOrders(currentUserId) as ArrayList<CartOrder>
         ordersRecyclerView.apply {
@@ -153,5 +166,7 @@ class CartFragment : Fragment() {
         } else {
             setAmountDetails(subTotal, 15.0)
         }
+        //Hides progress bar
+        cartProgressBar!!.visibility = View.GONE
     }
 }

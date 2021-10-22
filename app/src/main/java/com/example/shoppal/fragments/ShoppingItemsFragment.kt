@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,11 @@ import com.example.shoppal.models.Product
 
 
 class ShoppingItemsFragment : Fragment(), View.OnClickListener {
+
+    /**
+     * Stores reference of progress bar that shows progress
+     */
+    private var shoppingItemsProgressBar: ProgressBar? = null
 
     /**
      * Stores reference of searchEditText that takes keywords to search
@@ -50,6 +56,7 @@ class ShoppingItemsFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        shoppingItemsProgressBar = view.findViewById(R.id.fragment_shopping_items_progress)
         searchEditText = view.findViewById(R.id.edit_text_search)
         //Assigning shopping types in shoppingTypeList arraylist
         shoppingTypeList = ArrayList(
@@ -71,6 +78,8 @@ class ShoppingItemsFragment : Fragment(), View.OnClickListener {
         shoppingItemsRecyclerView =
             view.findViewById(R.id.recyclerview_shopping_items)
         shoppingItemsRecyclerView.layoutManager = GridLayoutManager(context, 2)
+        //Shows progress bar
+        shoppingItemsProgressBar!!.visibility = View.VISIBLE
         //Reads all shopping items from ShoppingItemsDatabase and then updates UI
         ShoppingItemsDatabase(this).readDatabase(shoppingTypeList[0].lowercase())
 
@@ -103,6 +112,8 @@ class ShoppingItemsFragment : Fragment(), View.OnClickListener {
             shoppingItemsRecyclerView.adapter =
                 ShoppingItemsAdapter(requireContext(), shoppingItemsList)
         }
+        //Hides progress bar
+        shoppingItemsProgressBar!!.visibility = View.GONE
     }
 
     /**
@@ -130,6 +141,8 @@ class ShoppingItemsFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         if (view != null) {
             if (view.id == R.id.btn_search) {
+                //Shows progress bar
+                shoppingItemsProgressBar!!.visibility = View.VISIBLE
                 //If btn_search is clicked then refreshes UI by getting all items on the basis of search keyword
                 val searchText = searchEditText.text.toString()
                 searchEditText.clearFocus()
@@ -142,5 +155,12 @@ class ShoppingItemsFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    /**
+     * Shows progress bar
+     */
+    fun showProgressBar() {
+        shoppingItemsProgressBar!!.visibility = View.VISIBLE
     }
 }
