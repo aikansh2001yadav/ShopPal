@@ -23,5 +23,25 @@ So, the primary motivation in building this application is to make use of fireba
 
   - **Forgot Password Screen:**  Password can be reset by sending reset email link after entering your account's email address.
 
+* After authentication or registeration of user, the user will be presented with Dashboard Screen which contains options to choose shopping items, cart items and status of orders placed.
 
+  - **Shopping Items Screen:** The user can choose shopping item to buy or add to cart. It has search functionality to search a particular product. It also displays various item categories to get items of a particular category.
   
+  - **Item Overview Screen:** It shows details of the shopping item. The user can buy or add to cart.
+  
+  - **Cart Items Screen:** It implements cart functionality.
+  
+  - **Select Address Screen:** The user can select address to buy product item.
+
+  - **Add Address Screen:** The user can add new address that can be selected by the user to buy product item/items.
+
+  - **Checkout Screen:** It shows details of the product/products to be bought, recipent address, items reciept and payment mode. The user can confirm details to place order.
+  
+  - **Order Status Items Screen:** It shows status of various orders placed.
+  
+  - **Order Item Screen:** It shows details of the order placed. It contains all the necessary details of the order.
+
+* Settings Screen: The user can edit profile details, see profile details and logout in the settings screen after clicking on settings icon on the dashboard.
+
+* User Profile Details Screen: The user can edit profile details in the user profile details screen.
+
