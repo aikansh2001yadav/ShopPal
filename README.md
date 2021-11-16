@@ -45,3 +45,17 @@ So, the primary motivation in building this application is to make use of fireba
 
 * User Profile Details Screen: The user can edit profile details in the user profile details screen.
 
+## Code Structure
+
+As the name implies MVC pattern has three layers, which are:
+
+* Model: Represents the business layer of the application. 
+ <br> Our application consists of model classes such as Address, Order, Order Detail, Order Receipt, Product and User. 
+* View: Defines the presentation of the application
+ <br> The user can login via login activity and register via register activity. The user can choose shopping item to buy from shopping items fragment. Orders fragment shows status of orders. Cart fragment implements cart functionality. Details of the item can be seen in item overview activity. The item/items can be bought by the user via Select Address Activity and Checkout Activity. The user can see the status of order in order item activity.  
+* Controller: Manages the flow of the application
+ <br> Our application consists of a lot of adapters which deal with list of data and update recycler views. Data is fetched via firebase api or room persistence library.
+ 
+ ## Package Structure
+ 
+ 
