@@ -58,4 +58,29 @@ As the name implies MVC pattern has three layers, which are:
  
  ## Package Structure
  
- 
+    com.example.shoppal               # Root Package
+      .
+      ├── activities                   # Contains various activities to login, register, add address, select address, implement cart functionality, checkout order, view shopping items, reset password, view details of the item, show status of the order, view/edit profile details and logout.
+      ├── adapters                     # Contains adapters to manage the flow of the application.
+      ├── firebase                     # Implements firebase authentication, firebase cloud firestore, firebase realtime database and firebase storage.  
+      ├── fragments                    # Contains CartFragment, OrdersFragment and ShoppingItemsFragment to implement cart functionality, display status of orders and display shopping items.
+      ├── interfaces                   # Has interface which contains setUserDetails method.
+      ├── models                       # Contains various model classes to implement business layer of the application.
+      ├── room                         # Implements room persistence library related logic.
+      └── utils                        # Contains Constants/Tags
+      
+## Technologies and Libraries
+
+- [Kotlin](https://kotlinlang.org/) - Official programming language for Android development.
+- [Firebase Authentication](https://firebase.google.com/docs/auth) - Firebase Authentication provides backend services, easy-to-use SDKs, and ready-made UI libraries to authenticate users to your app. It supports authentication using passwords, phone numbers, popular federated identity providers like Google, Facebook and Twitter, and more.
+- [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore) - Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud.
+- [Firebase Cloud Storage](https://firebase.google.com/docs/firestore) - Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud. Like Firebase Realtime Database, it keeps your data in sync across client apps through realtime listeners and offers offline support for mobile and web so you can build responsive apps that work regardless of network latency or Internet connectivity. Cloud Firestore also offers seamless integration with other Firebase and Google Cloud products, including Cloud Functions.
+- [Glide](https://bumptech.github.io/glide/) - Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling.
+- [Room](https://developer.android.com/topic/libraries/architecture/room) - The Room persistence library provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite.
+
+## Built With
+
+* Android Studio
+
+## Author
+* <a href="https://github.com/aikansh2001yadav"> **Aikansh Yadav** </a>
