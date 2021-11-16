@@ -8,15 +8,16 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/shopping_type_corner">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardUseCompatPadding="true">
 
         <TextView
             android:id="@+id/text_item_type"
             android:layout_width="match_parent"
-            android:textColor="@color/white"
             android:padding="@dimen/shopping_type_padding"
-            android:background="@color/blue"
             android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
 </LinearLayout>
