@@ -159,7 +159,7 @@ class CartFragment : Fragment() {
         //Calculating total price of all cart orders
         subTotal = 0.0
         for (cartOrder in cartOrdersList) {
-            subTotal += cartOrder.itemPrice!!
+            subTotal += cartOrder.itemPrice!! * cartOrder.itemCount
         }
         if (subTotal == 0.00) {
             setAmountDetails(subTotal, 0.0)
