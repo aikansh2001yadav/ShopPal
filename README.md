@@ -79,14 +79,14 @@ So, the primary motivation in building this application is to make use of fireba
   </p>
 
 * Settings Screen: The user can edit profile details, see profile details and logout in the settings screen after clicking on settings icon on the dashboard.
-<p align="center">
-<img src = "images/img_settings.png" width="200" height="400">
-</p>
+  <p align="center">
+  <img src = "images/img_settings.png" width="200" height="400">
+  </p>
 
 * User Profile Details Screen: The user can edit profile details in the user profile details screen.
-<p align="center">
-<img src = "images/img_user_profile_details.png" width="200" height="400">
-</p>
+  <p align="center">
+  <img src = "images/img_user_profile_details.png" width="200" height="400">
+  </p>
 
 ## Code Structure
 
