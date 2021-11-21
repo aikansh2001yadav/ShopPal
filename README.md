@@ -14,7 +14,7 @@ So, the primary motivation in building this application is to make use of fireba
 ## Application Screenshots
 
 * Splash Screen:
-  -<p align="center">
+   <p align="center">
    <img src = "images/img_splash.png" width="200" height="400">
    </p>
 
